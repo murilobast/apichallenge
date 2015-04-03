@@ -13,5 +13,10 @@ everyMinute = new Cron((->
         url = 'https://' + region + '.api.pvp.net/api/lol/' + region + '/v2.2/match/' + matchId + '?includetimestampline=false&api_key=' + apiKey
         matchGet = HTTP.get url
         matchData = matchGet.data
-        Matches.insert(matchData)
+        if Matches.find().count() != 0
+          regionUpper = region.toUpperCase()
+          if Matches.find(region: regionUpper, matchId: matchData.matchId).count() == 0
+            Matches.insert(matchData)
+          else
+            console.log 'FOUND A DUPLICATE MATCHID: '+matchData.matchId+' - Region: '+regionUpper
 ), {})
