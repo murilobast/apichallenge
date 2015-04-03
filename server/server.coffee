@@ -12,6 +12,6 @@ everyMinute = new Cron((->
     matchIds = HTTP.get url
     matchIds = matchIds.data
     for matchId in matchIds
-        url = 'https://' + region + '.api.pvp.net/api/lol/' + region + '/v2.2/match/' + matchId + '?api_key=' + key
+        url = 'https://' + region + '.api.pvp.net/api/lol/' + region + '/v2.2/match/' + matchId + '?includeTimeline=false&api_key=api_key=' + key
         game = HTTP.get url
 ), {})
