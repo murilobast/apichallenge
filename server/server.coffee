@@ -5,6 +5,7 @@ everyMinute = new Cron((->
   regions = ['br', 'eune', 'euw', 'kr', 'lan', 'las', 'na', 'oce', 'ru', 'tr']
   for region in regions
     getMatchIdsAndInsertMatches(region)
+    timestamp = timestamp-300
 ), {})
 getMatchIdsAndInsertMatches = (region) ->
   url = 'https://' + region + '.api.pvp.net/api/lol/' + region + '/v4.1/game/ids?beginDate=' + timestamp + '&api_key=' + apiKey
@@ -17,7 +18,7 @@ getMatchIdsAndInsertMatches = (region) ->
           url = 'https://' + region + '.api.pvp.net/api/lol/' + region + '/v2.2/match/' + matchId + '?includetimestampline=false&api_key=' + apiKey
           HTTP.get url, (err, matchGet) ->
             matchData = matchGet.data
-            console.log 'INSERTING '+matchData.matchId
+            console.log 'INSERTING '+matchData.matchId+' - timestamp: '+timestamp
             Matches.insert(matchData)
         else
           console.log 'FOUND A DUPLICATE MATCHID: '+matchId+' - Region: '+regionUpper
