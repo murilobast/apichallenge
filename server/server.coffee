@@ -1,7 +1,6 @@
 #regions = ['br', 'eune', 'euw', 'kr', 'lan', 'las', 'na', 'oce', 'ru', 'tr']
 #This is a comment
 #Matches.insert({test: 'test'}) ??yeah
-Matches.insert {test: 'test'}
 apiKey = Assets.getText 'apikey'
 timestamp = 1428040200
 everyMinute = new Cron((->
