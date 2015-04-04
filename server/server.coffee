@@ -25,21 +25,21 @@ makeIChampionObj = (region) ->
 			for champion in champions
 				championId = champion.id 
 				console.log championId
-				if Champions.find({id: championId}).count() == 1
+				if Champions.find({id: championId, region: regionUpper}).count() == 0
 					console.log "doesn't exist"
 					url = 'https://global.api.pvp.net/api/lol/static-data/'+region+'/v1.2/champion/'+championId+'?api_key='+apiKey
 					championGet = HTTP.get url
 					if championGet.statusCode == 200
 						championData = championGet.data
 						champion = {
-								region: regionUpper
-								id: championId
-								name: championData.name
-								key: championData.key
-								title: championData.title
-								likes: []
-							}
-						# Champions.insert(champion)
+							region: regionUpper
+							id: championId
+							name: championData.name
+							key: championData.key
+							title: championData.title
+							likes: []
+						}
+						Champions.insert(champion)
 					else
 						console.log championGet.statusCode
 				else
@@ -47,7 +47,9 @@ makeIChampionObj = (region) ->
 		else
 			console.log championsGet.statusCode
 
-makeIChampionObj('na')
+for region in regions
+    makeIChampionObj(region)
+
 updateChampionObj = (region) ->
 	regionUpper = region.toUpperCase()
 	for match in Matches.find({region: regionUpper}).fetch()
