@@ -16,8 +16,39 @@ everyMinute = new Cron((->
 ), {})###
 
 #need to get this optimized for performance (right now it's sync, can't get async to work properly) and also we need number of bans in the champion object. Still need a way to update the documents.
+makeIChampionObj = (region) ->
+	regionUpper = region.toUpperCase()
+	url = 'https://'+region+'.api.pvp.net/api/lol/'+region+'/v1.2/champion?api_key='+apiKey
+	HTTP.get url, (err, championsGet) -> 
+		if championsGet.statusCode == 200
+			champions = championsGet.data.champions
+			for champion in champions
+				championId = champion.id 
+				console.log championId
+				if Champions.find({id: championId}).count() == 1
+					console.log "doesn't exist"
+					url = 'https://global.api.pvp.net/api/lol/static-data/'+region+'/v1.2/champion/'+championId+'?api_key='+apiKey
+					championGet = HTTP.get url
+					if championGet.statusCode == 200
+						championData = championGet.data
+						champion = {
+								region: regionUpper
+								id: championId
+								name: championData.name
+								key: championData.key
+								title: championData.title
+								likes: []
+							}
+						# Champions.insert(champion)
+					else
+						console.log championGet.statusCode
+				else
+					console.log 'exist'
+		else
+			console.log championsGet.statusCode
 
-makeInsertAndUpdateChampionObj = (region) ->
+makeIChampionObj('na')
+updateChampionObj = (region) ->
 	regionUpper = region.toUpperCase()
 	for match in Matches.find({region: regionUpper}).fetch()
 		championRegion = match.region
