@@ -1,5 +1,5 @@
 FlowRouter.route '/',
     subscriptions: ->
-        @register 'matches', Meteor.subscribe 'matches'
+        @register 'champions', Meteor.subscribe 'champions'
     action: ->
         FlowLayout.render('home')

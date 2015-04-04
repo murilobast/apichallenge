@@ -1,1 +1,1 @@
-Meteor.publish 'matches', -> Matches.find()
+Meteor.publish 'champions', -> Champions.find()
