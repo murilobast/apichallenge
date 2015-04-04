@@ -9,13 +9,13 @@ Meteor.setInterval (->
         ), 10000
 ###
 
-###For production
+#For production
 everyMinute = new Cron((->
     for region in regions
         getMatchIdsAndInsertMatches(region)
-), {})###
+), {})
 
-### This is for updating the champions collection
+# This is for updating the champions collection
 makeIChampionObj = (region) ->
     regionUpper = region.toUpperCase()
     url = 'https://'+region+'.api.pvp.net/api/lol/'+region+'/v1.2/champion?api_key='+apiKey
@@ -47,9 +47,9 @@ makeIChampionObj = (region) ->
         else
             console.log championsGet.statusCode
 
-for region in regions
-    makeIChampionObj(region)
-###
+# for region in regions
+#     makeIChampionObj(region)
+
 updateChampionObj = (match) ->
     regionUpper = match.region
     championLatestTimestamp = match.timestamp
@@ -125,10 +125,10 @@ getMatchIdsAndInsertMatches = (region) ->
             console.log 'GET MATCHIDS - ERROR - STATUSCODE: '+matchIds.statusCode
     timestamp = timestamp-300
 
-updateMatchObj = ->
-    for match in Matches.find({region: 'EUW'}).fetch()
-        updateChampionObj(match)
-updateMatchObj()
+# updateMatchObj = ->
+#     for match in Matches.find({region: 'EUW'}).fetch()
+#         updateChampionObj(match)
+# updateMatchObj()
 
 # bans = []
 # for match in Matches.find({region: 'BR'}).fetch()
