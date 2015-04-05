@@ -1,9 +1,9 @@
-region = 'EUW'
+region = 'BR'
 Template.home.helpers 
 	'first': () ->
 		Champions.findOne({region: region},{sort: {winrate : -1}})
 	'champions': () ->
-		Champions.find({region: region},{sort: {winrate : -1}, limit: 10, skip: 1 })
+		Champions.find({region: region},{sort: {winrate : -1}, limit: 4, skip: 1 })
 	'winrate': (winrate) ->
 		winrate = Champions.findOne({region: region},{sort: {winrate : -1}}).winrate
 		winrate = parseInt(winrate*100)
@@ -15,11 +15,18 @@ Template.home.helpers
 		assists = parseInt(champion.assists/games)
 		kills+'/'+deaths+'/'+assists
 
+Template.home.events
+	'click .openModal': () ->
+		$('.blankscreen').css('display', 'block')
+		modal = $('.modal')
+		if modal.css('top') == '-3000px'
+			modal.css('top', '1px')
+		#Session.set 'info', Champions.findOne({region: region},{sort: {winrate : -1}})
 
 Template.champion.rendered = () ->
 	$('.count').each (number) ->
 		$(this).text('#'+(number+1))
-
+	
 Template.champion.helpers
 	'winrate': () ->
 		# wins = this.wins
@@ -34,3 +41,24 @@ Template.champion.helpers
 		deaths = parseInt(this.deaths/games)
 		assists = parseInt(this.assists/games)
 		kills+'/'+deaths+'/'+assists
+
+Template.champion.events
+	'click .openModal': () ->
+		$('.blankscreen').css('display', 'block')
+		modal = $('.modal')
+		if modal.css('top') == '-3000px'
+			modal.css('top', '1px')
+		Session.set 'info', this
+
+Template.infoModal.helpers
+	'getInfo': () ->
+		Session.get 'info'
+	'parseWinrate': (winrate) ->
+		parseInt(winrate*100)
+
+Template.infoModal.events
+	'click .close': () ->
+		$('.blankscreen').css('display', 'none')
+		modal = $('.modal')
+		if modal.css('top') == '1px'
+			modal.css('top', '-3000px')

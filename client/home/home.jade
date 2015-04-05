@@ -2,6 +2,7 @@ template(name="home")
 	.content
 		.content__header
 			h1.content__header__title I'm no pizzerino
+			#counter
 			select
 				option 1
 				option 2
@@ -21,11 +22,11 @@ template(name="home")
 					+progressCircle progress=winrate radius="50" class="green"
 					p.content__body__featured__stats__kda KDA
 					p.content__body__featured__stats__kda {{kda first}}
-				a(href="").content__body__featured__more More info
+				a(href="").content__body__featured__more.openModal More info
 			ul.content__body__champions
 				each champions
 					+champion
-
+		+infoModal
 template(name="champion")
 	li.content__body__champions__champion
 		img(src="http://ddragon.leagueoflegends.com/cdn/5.6.1/img/champion/{{key}}.png").content__body__champions__champion__image.circle
@@ -38,4 +39,37 @@ template(name="champion")
 			p.content__body__champions__champion__info__name {{kda}}
 		.content__body__champions__champion__footer
 			h3.content__body__champions__champion__footer__number.count #2
-			a(href="").content__body__champions__champion__footer__more More info
+			a(href="").content__body__champions__champion__footer__more.openModal More info
+
+template(name="infoModal")
+	.blankscreen
+	.modal
+		.modal__header
+			h3.modal__header__title Modal Info
+		.modal__body
+			.modal__body__info
+				img(src="http://ddragon.leagueoflegends.com/cdn/5.6.1/img/champion/{{getInfo.key}}.png").modal__body__info__image
+			.modal__body__stats
+				.modal__body__stats__item
+					.modal__body__stats__item__text Total games computed
+					.modal__body__stats__item__value {{getInfo.games}}
+				.modal__body__stats__item
+					.modal__body__stats__item__text Wins
+					.modal__body__stats__item__value {{getInfo.wins}}
+				.modal__body__stats__item
+					.modal__body__stats__item__text Losses
+					.modal__body__stats__item__value {{getInfo.losses}}
+				.modal__body__stats__item
+					.modal__body__stats__item__text Wirate
+					.modal__body__stats__item__value {{parseWinrate getInfo.winrate}}%
+				.modal__body__stats__item
+					.modal__body__stats__item__text Kills
+					.modal__body__stats__item__value {{getInfo.kills}}
+				.modal__body__stats__item
+					.modal__body__stats__item__text Deaths
+					.modal__body__stats__item__value {{getInfo.deaths}}
+				.modal__body__stats__item
+					.modal__body__stats__item__text Assists
+					.modal__body__stats__item__value {{getInfo.assists}}
+		.modal__footer
+			a(href="").modal__footer__button.close Close
