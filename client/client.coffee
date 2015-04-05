@@ -27,6 +27,12 @@ FlowRouter.route '/bans/:server',
         @register 'champions', Meteor.subscribe 'champions', server, sort, 20, 0
     action: ->
         FlowLayout.render('layout', { main: "display" })
+Template.layout.helpers
+    'isReady': (sub) ->
+        if sub
+            FlowRouter.subsReady(sub)
+        else
+            FlowRouter.subsReady()
 
 Template.body.rendered = () ->
     $("html").niceScroll({

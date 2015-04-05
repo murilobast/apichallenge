@@ -6,5 +6,8 @@ body
 
 template(name="layout")
 	+side
-	.container
-		+Template.dynamic template=main
+	.fixedBG
+	if isReady 'champions'
+		.container
+			+Template.dynamic template=main
+	else
