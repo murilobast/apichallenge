@@ -75,9 +75,11 @@ insertNewChampionObj = (region, regionUpper, matchData, participant, championId)
         championData['deaths'] = participant.stats.deaths
         championData['wins'] = 0
         championData['losses'] = 0
+        championData['winrate'] = 0
         championData['likes'] = []
         if participant.stats.winner == true
             championData['wins'] = 1
+            championData['winrate'] = 1
         else
             championData['losses'] = 1
         if Champions.find({region: regionUpper, id: championId}).count() == 0
@@ -94,18 +96,28 @@ updateChampionObj = (region, regionUpper, matchData, participant, championId) ->
     championLoss = 0
     if participant.stats.winner == true
         championWin = 1
+        championWins = championWin+Champions.find({id: championId, region: regionUpper}).fetch()[0].wins
+        championLosses = Champions.find({id: championId, region: regionUpper}).fetch()[0].losses
+        championGames = championWins+championLosses
+        championWinRate = championWins/championGames
     else
         championLoss = 1
-    Champions.update({id: championId, region: regionUpper}, {
+        championLosses = championLoss+Champions.find({id: championId, region: regionUpper}).fetch()[0].losses
+        championWins = Champions.find({id: championId, region: regionUpper}).fetch()[0].wins
+        championGames = championWins+championLosses
+        championWinRate = championWins/championGames
+    Champions.update(id: championId, region: regionUpper, {
         $inc: {
             kills: participant.stats.kills
             assists: participant.stats.assists
             deaths: participant.stats.deaths
             wins: championWin
             losses: championLoss
-            }
-        })
-
+        }
+        $set: {
+            winrate: championWinRate
+        }
+    })
 
 
 
