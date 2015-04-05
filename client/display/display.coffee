@@ -1,7 +1,9 @@
 region = 'BR'
 Template.display.helpers 
 	'first': () ->
-		Champions.findOne()
+		first = Champions.findOne()
+		Session.set 'first', first
+		first
 	'champions': () ->
 		Champions.find({},{skip: 1})
 	'winrate': (winrate) ->
@@ -16,12 +18,12 @@ Template.display.helpers
 		kills+'/'+deaths+'/'+assists
 
 Template.display.events
-	'click .openModal': () ->
+	'click .content__body__featured__more': () ->
 		$('.blankscreen').css('display', 'block')
 		modal = $('.modal')
 		if modal.css('top') == '-3000px'
 			modal.css('top', '1px')
-		#Session.set 'info', Champions.findOne({region: region},{sort: {winrate : -1}})
+		Session.set 'info', Session.get 'first'
 
 Template.champion.rendered = () ->
 	$('.count').each (number) ->

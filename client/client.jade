@@ -6,7 +6,7 @@ body
 
 template(name="layout")
 	+side
-	.fixedBG
+	.fixedBG(style="background-image: url(http://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{firstChamp}}_0.jpg)")
 	if isReady 'champions'
 		.container
 			+Template.dynamic template=main

@@ -4,7 +4,7 @@ FlowRouter.route '/wins/:server',
         sort = {
             winrate : -1
         }
-        @register 'champions', Meteor.subscribe 'champions', server, sort, 20, 0
+        @register 'champions', Meteor.subscribe 'champions', server, sort, 10, 0
     action: ->
         FlowLayout.render('layout', { main: "display" })
 
@@ -14,7 +14,7 @@ FlowRouter.route '/loss/:server',
         sort = {
             winrate : 1
         }
-        @register 'champions', Meteor.subscribe 'champions', server, sort, 20, 0
+        @register 'champions', Meteor.subscribe 'champions', server, sort, 10, 0
     action: ->
         FlowLayout.render('layout', { main: "display" })
 
@@ -24,15 +24,29 @@ FlowRouter.route '/bans/:server',
         sort = {
             bans: -1
         }
-        @register 'champions', Meteor.subscribe 'champions', server, sort, 20, 0
+        @register 'champions', Meteor.subscribe 'champions', server, sort, 10, 0
     action: ->
         FlowLayout.render('layout', { main: "display" })
+
+FlowRouter.route '/picks/:server',
+    subscriptions: (params) ->
+        server = params.server.toUpperCase()
+        sort = {
+            games: -1
+        }
+        @register 'champions', Meteor.subscribe 'champions', server, sort, 10, 0
+    action: ->
+        FlowLayout.render('layout', { main: "display" })
+
 Template.layout.helpers
     'isReady': (sub) ->
         if sub
             FlowRouter.subsReady(sub)
         else
             FlowRouter.subsReady()
+    'firstChamp': ->
+        bg = Session.get 'first'
+        bg.key
 
 Template.body.rendered = () ->
     $("html").niceScroll({

@@ -1,7 +1,6 @@
 @import '../vars-mixins'
 
 .fixedBG
-	background-image url('/new_kat.jpg')
 	position fixed
 	z-index -1
 	top 0
@@ -9,6 +8,7 @@
 	right 0
 	left 0
 	background-size cover
+	opacity 0.7 
 .container
 	position absolute
 	left 230px
@@ -37,7 +37,7 @@
 			depth(0)
 			transition(all 0.4s ease)
 			&:hover
-				depth(2)
+				depth(3)
 			&__header
 				margin-bottom 10px 
 				border-bottom 1px solid $border-grey
@@ -83,7 +83,7 @@
 				transition(all 0.4s ease)
 				depth(0)
 				&:hover
-					depth(2)
+					depth(3)
 				&__image
 					float left
 					width 100px
