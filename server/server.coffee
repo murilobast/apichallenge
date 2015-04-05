@@ -33,8 +33,10 @@ getMatchIds = (region) ->
             if result.statusCode == 200
                 console.log "GOT MATCHID'S FOR: "+regionUpper+' - TIMESTAMP: '+timestamp
                 matchIds = result.data
+                console.log matchIds
                 if matchIds.length != 0
-                    getMatches(region, regionUpper, matchIds)
+                    for matchId in matchIds
+                        getMatches(region, regionUpper, matchId)
             else
                 console.log "GET MATCHID'S - ERROR - STATUSCODE: "+matchIds.statusCode
         else
@@ -45,16 +47,16 @@ tryEveryRegion = ->
         getMatchIds(region)
 #tryEveryRegion()
 
-getMatches = (region, regionUpper, matchIds) ->
-    for matchId in matchIds
-        url = 'https://' + region + '.api.pvp.net/api/lol/' + region + '/v2.2/match/' + matchId + '?includetimestampline=false&api_key=' + apiKey
-        HTTP.get url, (err, result) ->
-            if result.statusCode == 200
-                console.log 'GOT MATCH FROM MATCHID: '+matchId+' - REGION: '+regionUpper
-                matchData = result.data
-                checkForChampions(region, regionUpper, matchData)
-            else
-                console.log 'GET MATCH - ERROR - STATUSCODE: '+result.statusCode
+getMatches = (region, regionUpper, matchId) ->
+    url = 'https://' + region + '.api.pvp.net/api/lol/' + region + '/v2.2/match/' + matchId + '?includetimestampline=false&api_key=' + apiKey
+    HTTP.get url, (err, result) ->
+        if result.statusCode == 200
+            console.log 'GOT MATCH FROM MATCHID: '+matchId+' - REGION: '+regionUpper
+            matchData = result.data
+            checkForChampions(region, regionUpper, matchData)
+            getTeamsBanData(region, regionUpper, matchData)
+        else
+            console.log 'GET MATCH - ERROR - STATUSCODE: '+result.statusCode
 
 checkForChampions = (region, regionUpper, matchData) ->
     for participant in matchData.participants
@@ -129,6 +131,30 @@ updateChampionObj = (region, regionUpper, matchData, participant, championId) ->
         }
     })
 
-###addBansToEachChampion = (region, regionUpper, matchData) ->
-    for championId in matchData.teams.bans
-        console.log championId###
+getTeamsBanData = (region, regionUpper, matchData) ->
+    for teamsBanData in matchData.teams[0].bans
+        addBansToEachChampion(region, regionUpper, teamsBanData)
+    for teamsBanData in matchData.teams[1].bans
+        addBansToEachChampion(region, regionUpper, teamsBanData)
+
+addBansToEachChampion = (region, regionUpper, teamsBanData) ->
+    championIdBan = teamsBanData.championId
+    console.log championIdBan
+    if Champions.find({region: regionUpper, id: championIdBan}).count() == 0
+        url = 'https://global.api.pvp.net/api/lol/static-data/'+region+'/v1.2/champion/'+championIdBan+'?api_key='+apiKey
+        result = HTTP.get url
+        if result.statusCode == 200
+            championData = result.data
+            championData['region'] = regionUpper
+            championData['bans'] = 1
+            Champions.insert(championData)
+        else
+            console.log 'GET CHAMPION - ERROR - STATUSCODE: '+result.statusCode
+    else if Champions.findOne({id: championIdBan, region: regionUpper, bans: {$exists: false}})
+        Champions.update(id: championIdBan, region: regionUpper, {
+            $set: {bans: 1}
+        })
+    else
+        Champions.update(id: championIdBan, region: regionUpper, {
+            $inc: {bans: 1}
+        })
