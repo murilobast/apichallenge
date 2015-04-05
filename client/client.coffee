@@ -18,11 +18,11 @@ FlowRouter.route '/loss/:server',
     action: ->
         FlowLayout.render('layout', { main: "display" })
 
-FlowRouter.route '/pick/:server',
+FlowRouter.route '/bans/:server',
     subscriptions: (params) ->
         server = params.server.toUpperCase()
         sort = {
-            wins : -1
+            bans: -1
         }
         @register 'champions', Meteor.subscribe 'champions', server, sort, 10, 0
     action: ->
