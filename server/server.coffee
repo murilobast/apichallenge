@@ -1,6 +1,6 @@
 apiKey = Assets.getText 'apikey'
 regions = ['br', 'eune', 'euw', 'kr', 'lan', 'las', 'na', 'oce', 'ru', 'tr']
-timestamp = 1428185400
+timestamp = 1428251700
 testCount = 1
 
 #For testing
@@ -71,6 +71,11 @@ insertNewChampionObj = (region, regionUpper, matchData, participant, championId)
         championData = result.data
         championData['region'] = regionUpper
         championData['kills'] = participant.stats.kills
+        championData['doubleKills'] = participant.stats.doubleKills
+        championData['tripleKills'] = participant.stats.tripleKills
+        championData['quadraKills'] = participant.stats.quadraKills
+        championData['pentaKills'] = participant.stats.pentaKills
+        championData['unrealKills'] = participant.stats.unrealKills
         championData['assists'] = participant.stats.assists
         championData['deaths'] = participant.stats.deaths
         championData['wins'] = 0
