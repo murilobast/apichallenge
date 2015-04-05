@@ -114,6 +114,11 @@ updateChampionObj = (region, regionUpper, matchData, participant, championId) ->
     Champions.update(id: championId, region: regionUpper, {
         $inc: {
             kills: participant.stats.kills
+            doubleKills: participant.stats.doubleKills
+            tripleKills: participant.stats.tripleKills
+            quadraKills: participant.stats.quadraKills
+            pentaKills: participant.stats.pentaKills
+            unrealKills: participant.stats.unrealKills
             assists: participant.stats.assists
             deaths: participant.stats.deaths
             wins: championWin
@@ -123,3 +128,7 @@ updateChampionObj = (region, regionUpper, matchData, participant, championId) ->
             winrate: championWinRate
         }
     })
+
+###addBansToEachChampion = (region, regionUpper, matchData) ->
+    for championId in matchData.teams.bans
+        console.log championId###
