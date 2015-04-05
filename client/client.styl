@@ -1,0 +1,62 @@
+@import 'vars-mixins'
+@import url('http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700')
+//@import url('http://fonts.googleapis.com/css?family=Roboto:500,100,300,700,400')
+*
+	font-family 'Open Sans', sans-serif
+	//font-family 'Roboto', sans-serif
+	margin 0
+	padding 0
+	-webkit-box-sizing border-box 
+	-moz-box-sizing border-box 
+	box-sizing border-box 
+	user-select(none)
+	-webkit-tap-highlight-color transparent !important
+input:-webkit-autofill
+	-webkit-box-shadow: 0 0 0px 1000px white inset;
+body
+	position initial
+	min-width 320px 
+	background #303035
+	background-image url('http://gankei.com/img/bg.jpg')
+	background-repeat no-repeat
+	background-size cover
+a, a:hover, a:active
+	text-decoration none !important
+a:active
+	text-decoration none !important
+p, a, h1, h2, h3, h4, h5, label
+	margin 0
+	padding 0
+	color $grey
+	font-weight 400 
+h1, h2, h3, h4, h5, label
+	color $dark-grey
+p
+	font-size 14px
+h1
+	font-size 26px
+	font-weight 600 
+h3
+	font-size 18px
+	font-weight 600
+ul li
+	list-style none 
+.circle
+	border-radius(100%)
+	
+.muted
+	color $light-grey 
+	
+#iron-router-progress
+	background-color #03A9F4
+	height 1px
+#iron-router-progress.spinner:before
+	position fixed
+	top 1px
+	bottom 1px
+	right 1px
+	left 1px
+	margin auto
+	width 60px
+	height 60px
+	border-color #03A9F4

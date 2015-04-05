@@ -13,3 +13,5 @@ mquandalle:jade
 meteorhacks:flow-router
 meteorhacks:flow-layout
 msavin:mongol
+raix:ui-progress-circle
+jquery

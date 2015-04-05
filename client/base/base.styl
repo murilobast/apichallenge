@@ -1,0 +1,125 @@
+@import '../vars-mixins'
+.content
+	max-width 1200px
+	width 100%
+	margin 20px auto
+	background $white
+	depth(1)
+	border-radius(2px)
+	padding 10px
+	&__header
+		overflow hidden
+		width 100% 
+		border-bottom 1px solid $border-grey
+		padding-bottom 10px
+		margin-bottom 10px
+	&__body	
+		&__featured
+			width 600px
+			margin 0 auto 
+			margin-bottom 20px
+			overflow hidden
+			border 1px solid $border-grey
+			background $white
+			padding 10px 
+			padding-top 0 
+			text-align center
+			depth(0)
+			transition(all 0.4s ease)
+			&:hover
+				depth(2)
+			&__header
+				margin-bottom 10px 
+				border-bottom 1px solid $border-grey
+				&__number
+					float left
+					font-weight 400
+				&__title
+					line-height 30px
+			&__image
+				margin 10px 0
+				width 200px
+				display inline-block
+			&__stats
+				vertical-align top
+				width 300px
+				display inline-block
+				& p
+					line-height 30px
+				&__kda
+					font-weight 600 
+					font-size 16px
+			&__more
+				width 100%
+				display block
+				text-align right
+				font-weight 600 
+				transition(all 0.4s)
+				&:hover
+					color $blue
+					padding-right 5px 
+		&__champions
+			padding-top 10px
+			border-top 1px solid $border-grey
+			text-align center
+			&__champion
+				padding 10px
+				padding-bottom 5px
+				display inline-block
+				width 40% 
+				margin 10px 20px
+				border 1px solid $border-grey
+				transition(all 0.4s ease)
+				depth(0)
+				&:hover
+					depth(2)
+				&__image
+					float left
+					width 100px
+					margin-right 10px
+				&__rate
+					float left 
+					padding 0 10px
+					border-left 1px solid $border-grey
+					&__text
+						line-height 26px
+				&__info
+					p
+						line-height 26px 
+				&__footer
+					clear both
+					&__number
+						text-align left
+						width 50%
+						float left 
+					&__more
+						text-align right
+						float right
+						width 50%
+						font-weight 600 
+						transition(all 0.4s)
+						&:hover
+							color $blue
+							padding-right 5px 
+				
+
+
+
+
+				
+/* The text in center */
+svg.ui-progress-circle #text.green 
+	fill $grey
+
+/* Background of mid circle */
+svg.ui-progress-circle #background.green 
+	fill $grey-white
+
+/* Circle stroke around text */
+svg.ui-progress-circle #stroke.green 
+	stroke $light-teal
+	opacity .5
+
+/* Progress marker */
+svg.ui-progress-circle #progress.green 
+	fill $light-teal

@@ -1,19 +1,36 @@
 apiKey = Assets.getText 'apikey'
 regions = ['br', 'eune', 'euw', 'kr', 'lan', 'las', 'na', 'oce', 'ru', 'tr']
-timestamp = 1428098400
+timestamp = 1428185400
 
-###For testing
-Meteor.setInterval (->
-        for region in regions
-                getMatchIdsAndInsertMatches(region)
-        ), 10000
-###
+#For testing
+# Meteor.setInterval (->
+#     for region in regions
+#         getMatchIdsAndInsertMatches(region)
+#     ), 10000
+
+# Making a game field in my collection and updating the winrate
+updateAllChampions = (region) ->
+    regionUpper = region.toUpperCase()
+    for champion in Champions.find(region: regionUpper).fetch()
+        id = champion.id
+        wins = champion.wins
+        losses = champion.losses
+        games = wins + losses
+        winrate = wins/games
+        update = {
+            games: games
+            winrate: winrate
+        }
+        console.log 'UPDATING CHAMPION '+id+' - SERVER '+regionUpper
+        Champions.update({id: id, region: regionUpper}, {$set: update})
+# for region in regions
+#     updateAllChampions(region)
 
 #For production
-everyMinute = new Cron((->
-    for region in regions
-        getMatchIdsAndInsertMatches(region)
-), {})
+# everyMinute = new Cron((->
+#     for region in regions
+#         getMatchIdsAndInsertMatches(region)
+# ), {})
 
 # This is for updating the champions collection
 makeIChampionObj = (region) ->
@@ -24,9 +41,8 @@ makeIChampionObj = (region) ->
             champions = championsGet.data.champions
             for champion in champions
                 championId = champion.id 
-                console.log championId
                 if Champions.find({id: championId, region: regionUpper}).count() == 0
-                    console.log "doesn't exist"
+                    console.log "INSERTING CHAMPION "+championId+" SERVER "+regionUpper
                     url = 'https://global.api.pvp.net/api/lol/static-data/'+region+'/v1.2/champion/'+championId+'?api_key='+apiKey
                     championGet = HTTP.get url
                     if championGet.statusCode == 200
@@ -43,7 +59,7 @@ makeIChampionObj = (region) ->
                     else
                         console.log championGet.statusCode
                 else
-                    console.log 'exist'
+                    console.log "CHAMPION "+championId+" SERVER "+regionUpper+' EXISTS'
         else
             console.log championsGet.statusCode
 
@@ -71,12 +87,14 @@ updateChampionObj = (match) ->
                 deaths: championDeaths
                 wins: championWin
                 losses: championLoss
+                games: 1
                 latestTimestamp: championLatestTimestamp
             }
-            console.log 'INSERTING CHAMPION!'
             if Champions.findOne({id: championId, region: regionUpper, kills: {$exists: false}})
+                console.log 'NEW CHAMPION FIELDS BEING INSERTED! ID: '+championId+' SERVER: '+regionUpper
                 Champions.update({id: championId, region: regionUpper}, {$set: champion})
             else
+                console.log 'UPDATING CHAMPION DATA!ID: '+championId+' SERVER: '+regionUpper
                 Champions.update({id: championId, region: regionUpper}, {
                     $inc: {
                         kills: championKills
