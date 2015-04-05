@@ -1,14 +1,128 @@
 apiKey = Assets.getText 'apikey'
 regions = ['br', 'eune', 'euw', 'kr', 'lan', 'las', 'na', 'oce', 'ru', 'tr']
 timestamp = 1428185400
+testCount = 1
 
 #For testing
-# Meteor.setInterval (->
-#     for region in regions
-#         getMatchIdsAndInsertMatches(region)
-#     ), 10000
+#Meteor.setInterval (->
+#    for region in regions
+#        getMatchIds(region)
+#        #getMatchIdsAndInsertMatches(region)
+#    timestamp = timestamp-300
+#    ), 10000
 
-# Making a game field in my collection and updating the winrate
+#For production
+#everyMinute = new Cron((->
+#    for region in regions
+#       getMatchIds(region)
+#        #getMatchIdsAndInsertMatches(region)
+#    timestamp = timestamp-300
+#), {})
+
+checkCollection = ->
+    for champ in Champions.find({region: "EUNE"}).fetch()
+        test = champ.wins+champ.losses
+        console.log 'NAME: '+champ.name+' - ID: '+champ.id+' - KILLS: '+champ.kills+' - ROUNDS: '+test
+#checkCollection()
+
+getMatchIds = (region) ->
+    url = 'https://' + region + '.api.pvp.net/api/lol/' + region + '/v4.1/game/ids?beginDate=' + timestamp + '&api_key=' + apiKey
+    regionUpper = region.toUpperCase()
+    HTTP.get url, (err, result) ->
+        if not err
+            if result.statusCode == 200
+                console.log "GOT MATCHID'S FOR: "+regionUpper+' - TIMESTAMP: '+timestamp
+                matchIds = result.data
+                if matchIds.length != 0
+                    getMatches(region, regionUpper, matchIds)
+            else
+                console.log "GET MATCHID'S - ERROR - STATUSCODE: "+matchIds.statusCode
+        else
+            console.log err
+
+tryEveryRegion = ->
+    for region in regions
+        getMatchIds(region)
+#tryEveryRegion()
+
+getMatches = (region, regionUpper, matchIds) ->
+    for matchId in matchIds
+        url = 'https://' + region + '.api.pvp.net/api/lol/' + region + '/v2.2/match/' + matchId + '?includetimestampline=false&api_key=' + apiKey
+        HTTP.get url, (err, result) ->
+            if result.statusCode == 200
+                console.log 'GOT MATCH FROM MATCHID: '+matchId+' - REGION: '+regionUpper
+                matchData = result.data
+                checkForChampions(region, regionUpper, matchData)
+            else
+                console.log 'GET MATCH - ERROR - STATUSCODE: '+result.statusCode
+
+checkForChampions = (region, regionUpper, matchData) ->
+    for participant in matchData.participants
+        championId = participant.championId
+        if Champions.find({region: regionUpper, id: championId}).count() == 0
+            insertNewChampionObj(region, regionUpper, matchData, participant, championId)
+        else
+            updateChampionObj(region, regionUpper, matchData, participant, championId)
+
+insertNewChampionObj = (region, regionUpper, matchData, participant, championId) ->
+    url = 'https://global.api.pvp.net/api/lol/static-data/'+region+'/v1.2/champion/'+championId+'?api_key='+apiKey
+    result = HTTP.get url
+    if result.statusCode == 200
+        championData = result.data
+        championData['region'] = regionUpper
+        championData['kills'] = participant.stats.kills
+        championData['assists'] = participant.stats.assists
+        championData['deaths'] = participant.stats.deaths
+        championData['wins'] = 0
+        championData['losses'] = 0
+        championData['likes'] = []
+        if participant.stats.winner == true
+            championData['wins'] = 1
+        else
+            championData['losses'] = 1
+        if Champions.find({region: regionUpper, id: championId}).count() == 0
+            console.log 'INSERTING NEW CHAMPION ID: '+championId+' - REGION: '+regionUpper
+            Champions.insert(championData)
+        else
+            updateChampionObj(region, regionUpper, matchData, participant, championId)
+    else
+        console.log 'GET CHAMPION - ERROR - STATUSCODE: '+result.statusCode
+
+updateChampionObj = (region, regionUpper, matchData, participant, championId) ->
+    #console.log 'UPDATING CHAMPION ID: '+championId+' - REGION: '+regionUpper
+    championWin = 0
+    championLoss = 0
+    if participant.stats.winner == true
+        championWin = 1
+    else
+        championLoss = 1
+    Champions.update({id: championId, region: regionUpper}, {
+        $inc: {
+            kills: participant.stats.kills
+            assists: participant.stats.assists
+            deaths: participant.stats.deaths
+            wins: championWin
+            losses: championLoss
+            }
+        })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#MAYBE DELETE ALL THIS?
+#Making a game field in my collection and updating the winrate
 updateAllChampions = (region) ->
     regionUpper = region.toUpperCase()
     for champion in Champions.find(region: regionUpper).fetch()
@@ -25,12 +139,6 @@ updateAllChampions = (region) ->
         Champions.update({id: id, region: regionUpper}, {$set: update})
 # for region in regions
 #     updateAllChampions(region)
-
-#For production
-# everyMinute = new Cron((->
-#     for region in regions
-#         getMatchIdsAndInsertMatches(region)
-# ), {})
 
 # This is for updating the champions collection
 makeIChampionObj = (region) ->
@@ -65,7 +173,7 @@ makeIChampionObj = (region) ->
 
 # for region in regions
 #     makeIChampionObj(region)
-
+###
 updateChampionObj = (match) ->
     regionUpper = match.region
     championLatestTimestamp = match.timestamp
@@ -109,9 +217,8 @@ updateChampionObj = (match) ->
             #update stuff missing a lot
             #reusingChampData = Champions.find({championId: championId, region: championRegion}).fetch[0]
             console.log 'ALREADY IN DATABASE!'
-
-# makeInsertAndUpdateChampionObj('br')
-
+###
+#makeInsertAndUpdateChampionObj('euw')
 getMatchIdsAndInsertMatches = (region) ->
     url = 'https://' + region + '.api.pvp.net/api/lol/' + region + '/v4.1/game/ids?beginDate=' + timestamp + '&api_key=' + apiKey
     regionUpper = region.toUpperCase()
@@ -142,7 +249,7 @@ getMatchIdsAndInsertMatches = (region) ->
         else
             console.log 'GET MATCHIDS - ERROR - STATUSCODE: '+matchIds.statusCode
     timestamp = timestamp-300
-
+#
 # updateMatchObj = ->
 #     for match in Matches.find({region: 'EUW'}).fetch()
 #         updateChampionObj(match)
