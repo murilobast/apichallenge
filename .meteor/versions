@@ -41,6 +41,7 @@ mongo@1.1.0-rc.0
 mquandalle:jade@0.4.1
 mrt:nprogress@0.1.0
 msavin:mongol@1.0.12
+natestrauser:animate-css@3.2.6
 observe-sequence@1.0.5-win.0
 ordered-dict@1.0.3-rc.0
 raix:ui-progress-circle@0.0.3

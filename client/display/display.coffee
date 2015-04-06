@@ -1,10 +1,30 @@
-region = 'BR'
+showModal = (info) ->
+	blankscreen = $('.blankscreen')
+	blankscreen.css('display', 'block')
+	blankscreen.addClass('fadeIn')
+	modal = $('.modal')
+	if modal.css('display') == 'none'
+		modal.css('top', '1px')
+		modal.css('display', 'block')
+		modal.addClass('fadeIn')
+	Session.set 'info', info
+
+hideModal = () ->
+	blankscreen = $('.blankscreen')
+	# blankscreen.addClass('fadeOut')
+	blankscreen.css('display', 'none')
+	modal = $('.modal')
+	if modal.css('display') == 'block'
+		modal.css('top', '1px')
+		# modal.addClass('fadeOut')
+		modal.css('display', 'none')
+
 Template.display.helpers 
-	'first': () ->
+	'first': ->
 		first = Champions.findOne()
 		Session.set 'first', first
 		first
-	'champions': () ->
+	'champions': ->
 		Champions.find({},{skip: 1})
 	'winrate': (winrate) ->
 		winrate = Champions.findOne().winrate
@@ -18,26 +38,22 @@ Template.display.helpers
 		kills+'/'+deaths+'/'+assists
 
 Template.display.events
-	'click .content__body__featured__more': () ->
-		$('.blankscreen').css('display', 'block')
-		modal = $('.modal')
-		if modal.css('top') == '-3000px'
-			modal.css('top', '1px')
-		Session.set 'info', Session.get 'first'
+	'click .content__body__featured__more': ->
+		showModal(Session.get 'first')
 
-Template.champion.rendered = () ->
+Template.champion.rendered = ->
 	$('.count').each (number) ->
 		$(this).text('#'+(number+1))
 	
 Template.champion.helpers
-	'winrate': () ->
+	'winrate': ->
 		# wins = this.wins
 		# losses = this.losses
 		# total = wins + losses
 		# winrate = (wins/total)*100
 		parseInt(this.winrate*100)
 
-	'kda': () ->
+	'kda': ->
 		games = this.wins + this.losses
 		kills = parseInt(this.kills/games)
 		deaths = parseInt(this.deaths/games)
@@ -45,22 +61,15 @@ Template.champion.helpers
 		kills+'/'+deaths+'/'+assists
 
 Template.champion.events
-	'click .openModal': () ->
-		$('.blankscreen').css('display', 'block')
-		modal = $('.modal')
-		if modal.css('top') == '-3000px'
-			modal.css('top', '1px')
-		Session.set 'info', this
+	'click .openModal': ->
+		showModal(@)
 
 Template.infoModal.helpers
-	'getInfo': () ->
+	'getInfo': ->
 		Session.get 'info'
 	'parseWinrate': (winrate) ->
 		parseInt(winrate*100)
 
 Template.infoModal.events
-	'click .close': () ->
-		$('.blankscreen').css('display', 'none')
-		modal = $('.modal')
-		if modal.css('top') == '1px'
-			modal.css('top', '-3000px')
+	'click .close': ->
+		hideModal()

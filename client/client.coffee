@@ -4,17 +4,17 @@ FlowRouter.route '/wins/:server',
         sort = {
             winrate : -1
         }
-        @register 'champions', Meteor.subscribe 'champions', server, sort, 10, 0
+        @register 'champions', Meteor.subscribe 'champions', server, sort, 124, 0
     action: ->
         FlowLayout.render('layout', { main: "display" })
 
-FlowRouter.route '/loss/:server',
+FlowRouter.route '/losses/:server',
     subscriptions: (params) ->
         server = params.server.toUpperCase()
         sort = {
             winrate : 1
         }
-        @register 'champions', Meteor.subscribe 'champions', server, sort, 10, 0
+        @register 'champions', Meteor.subscribe 'champions', server, sort, 124, 0
     action: ->
         FlowLayout.render('layout', { main: "display" })
 
@@ -24,7 +24,7 @@ FlowRouter.route '/bans/:server',
         sort = {
             bans: -1
         }
-        @register 'champions', Meteor.subscribe 'champions', server, sort, 10, 0
+        @register 'champions', Meteor.subscribe 'champions', server, sort, 124, 0
     action: ->
         FlowLayout.render('layout', { main: "display" })
 
@@ -34,7 +34,7 @@ FlowRouter.route '/picks/:server',
         sort = {
             games: -1
         }
-        @register 'champions', Meteor.subscribe 'champions', server, sort, 10, 0
+        @register 'champions', Meteor.subscribe 'champions', server, sort, 124, 0
     action: ->
         FlowLayout.render('layout', { main: "display" })
 
@@ -50,7 +50,7 @@ Template.layout.helpers
 
 Template.body.rendered = () ->
     $("html").niceScroll({
-        zindex: 100,
+        zindex: 1240,
         cursorcolor: '#fff',
         cursoropacitymin: 0.05,
         cursoropacitymax: 0.3,
@@ -58,3 +58,6 @@ Template.body.rendered = () ->
         cursorborderradius: 0,
         mousescrollstep: 60
     })
+
+Transitions.transitionOut = 'fadeOut'
+Transitions.transitionIn = 'fadeIn'
