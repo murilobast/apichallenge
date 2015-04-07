@@ -59,7 +59,7 @@ getMatchIds = (region) ->
 tryEveryRegion = ->
     for region in regions
         getMatchIds(region)
-#tryEveryRegion()
+tryEveryRegion()
 
 getMatches = (region, regionUpper, matchId) ->
     url = 'https://' + region + '.api.pvp.net/api/lol/' + region + '/v2.2/match/' + matchId + '?includetimestampline=false&api_key=' + apiKey
@@ -123,6 +123,13 @@ insertNewChampionObj = (region, regionUpper, matchData, participant, championId)
         if Champions.find({region: regionUpper, id: championId}).count() == 0
             #console.log 'INSERTING NEW CHAMPION ID: '+championId+' - REGION: '+regionUpper
             Champions.insert(championData)
+            championData['region'] = 'ALL'
+            url = 'https://global.api.pvp.net/api/lol/static-data/euw/v1.2/champion/'+championId+'?api_key='+apiKey
+            result = HTTP.get url
+            championDataForAll = result.data
+            championData['name'] = championDataForAll.name
+            championData['title'] = championDataForAll.title
+            Champions.insert(championData)
         else
             updateChampionObj(region, regionUpper, matchData, participant, championId)
     else
@@ -144,7 +151,7 @@ updateChampionObj = (region, regionUpper, matchData, participant, championId) ->
         championWins = Champions.find({id: championId, region: regionUpper}).fetch()[0].wins
         championGames = championWins+championLosses
         championWinRate = championWins/championGames
-    Champions.update(id: championId, region: regionUpper, {
+    updateThisData = {
         $inc: {
             kills: participant.stats.kills
             doubleKills: participant.stats.doubleKills
@@ -161,7 +168,9 @@ updateChampionObj = (region, regionUpper, matchData, participant, championId) ->
         $set: {
             winrate: championWinRate
         }
-    })
+    }
+    Champions.update(id: championId, region: regionUpper, updateThisData)
+    Champions.update(id: championId, region: 'ALL', updateThisData)
 
 getTeamsBanData = (region, regionUpper, matchData) ->
     teamsBanDataResult = []
