@@ -1,0 +1,71 @@
+@import '../vars-mixins'
+.blankscreen
+	position fixed
+	top 0
+	bottom 0
+	left 0
+	right 0
+	background $grey 
+	opacity 0.6 
+	transition(all 0.2s)
+	display none
+.modal
+	display none
+	transition(all 0.4s)
+	height 400px 
+	width 400px
+	z-index 10
+	depth(3)
+	position fixed
+	top 1px
+	bottom 1px
+	right 1px
+	left 1px
+	margin auto
+	background $semi-transp-white
+	border-radius(5px)
+	padding 5px 10px
+	&__header
+		width 100%
+		border-bottom 1px solid $light-grey
+		&__title
+			line-height 30px 
+	&__body
+		padding 10px 0
+		&__info
+			&__image
+				width 100px
+				margin 5px auto
+				display block
+		&__stats
+			display block
+			overflow hidden
+			width 100% 
+			&__item
+				line-height 26px 
+				border-bottom 1px solid $light-grey
+				overflow hidden
+				width 80%
+				margin 0 auto 
+				&__text
+					float left
+					clear left
+					font-weight 600 
+					color $grey-white 
+				&__value
+					float right
+					clear right
+					color $light-teal 
+					font-weight 600 
+	&__footer
+		&__button
+			clear both
+			display table
+			margin 0 auto
+			padding 5px 20px
+			background $red
+			color $white
+			depth(0)
+			transition(all 0.4s)   
+			&:hover
+				depth(2)

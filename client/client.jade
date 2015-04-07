@@ -1,7 +1,13 @@
 head
-	title App
+	title RITOCHALLENGE
+	meta(http-equiv="content-type", content="text/html; charset=UTF-8")
+	meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
 body
-	h1 app name
 
-template(name="home")
-	p its working
+template(name="layout")
+	+side
+	.fixedBG(style="background-image: url(http://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{firstChamp}}_0.jpg)").animated.fadeIn
+	if isReady 'champions'
+		.container
+			+Template.dynamic template=main
+	else
