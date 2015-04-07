@@ -10,14 +10,27 @@ testCount = 1
 #    timestamp = timestamp-300
 #    ), 5000
 
+getTime = ->
+    date = new Date
+    dateFlat = new Date
+    dateFlat.setMinutes(Math.round(dateFlat.getMinutes()/5) * 5) % 60
+    dateFlat.setSeconds(0)
+    if dateFlat.getMinutes() > date.getMinutes()
+        dateFlat.setMinutes(dateFlat.getMinutes() - 5)
+    date = Number(dateFlat).toString().slice(0,-3)
+    date
+
 #For production
-#everyMinute = new Cron((->
-#    for region in regions
-#       getMatchIds(region)
-#    timestamp = timestamp+300
+#everyHour = new Cron((->
+#    timestamp = getTime()
+#    Meteor.setInterval (->
+#        for region in regions
+#            getMatchIds(region)
+#            timestamp = timestamp-300
+#        ), 300000
 #), {
-#    minute: 5
-#    })
+#    minute: 4
+#})
 
 checkCollection = ->
     #for champ in Champions.find({region: "EUNE"}).fetch()
