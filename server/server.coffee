@@ -1,6 +1,6 @@
 apiKey = Assets.getText 'apikey'
 regions = ['br', 'eune', 'euw', 'kr', 'lan', 'las', 'na', 'oce', 'ru', 'tr']
-timestamp = 1428251700
+timestamp = 1428393900
 testCount = 1
 
 #For testing
@@ -8,19 +8,22 @@ testCount = 1
 #    for region in regions
 #        getMatchIds(region)
 #    timestamp = timestamp-300
-#    ), 10000
+#    ), 5000
 
 #For production
 #everyMinute = new Cron((->
 #    for region in regions
 #       getMatchIds(region)
-#    timestamp = timestamp-300
-#), {})
+#    timestamp = timestamp+300
+#), {
+#    minute: 5
+#    })
 
 checkCollection = ->
-    for champ in Champions.find({region: "EUNE"}).fetch()
-        test = champ.wins+champ.losses
-        console.log 'NAME: '+champ.name+' - ID: '+champ.id+' - KILLS: '+champ.kills+' - ROUNDS: '+test
+    #for champ in Champions.find({region: "EUNE"}).fetch()
+    #    test = champ.wins+champ.losses
+    #    console.log 'NAME: '+champ.name+' - ID: '+champ.id+' - KILLS: '+champ.kills+' - ROUNDS: '+test
+    console.log 'test'
 #checkCollection()
 
 getMatchIds = (region) ->
@@ -31,29 +34,45 @@ getMatchIds = (region) ->
             if result.statusCode == 200
                 console.log "GOT MATCHID'S FOR: "+regionUpper+' - TIMESTAMP: '+timestamp
                 matchIds = result.data
-                if matchIds.length != 0
+                if matchIds.length > 0
                     for matchId in matchIds
                         getMatches(region, regionUpper, matchId)
             else
                 console.log "GET MATCHID'S - ERROR - STATUSCODE: "+matchIds.statusCode
         else
             console.log err
+            timestamp = timestamp-300
 
 tryEveryRegion = ->
     for region in regions
         getMatchIds(region)
-tryEveryRegion()
+#tryEveryRegion()
 
 getMatches = (region, regionUpper, matchId) ->
     url = 'https://' + region + '.api.pvp.net/api/lol/' + region + '/v2.2/match/' + matchId + '?includetimestampline=false&api_key=' + apiKey
     HTTP.get url, (err, result) ->
-        if result.statusCode == 200
-            console.log 'GOT MATCH FROM MATCHID: '+matchId+' - REGION: '+regionUpper
-            matchData = result.data
-            checkForChampions(region, regionUpper, matchData)
-            getTeamsBanData(region, regionUpper, matchData)
+        if not err
+            if result.statusCode == 200
+                console.log 'GOT MATCH FROM MATCHID: '+matchId+' - REGION: '+regionUpper
+                matchData = result.data
+                checkForChampions(region, regionUpper, matchData)
+                getTeamsBanData(region, regionUpper, matchData)
+                #insertMatches(regionUpper, matchData)
+            else
+                console.log 'GET MATCH - ERROR - STATUSCODE: '+result.statusCode
         else
-            console.log 'GET MATCH - ERROR - STATUSCODE: '+result.statusCode
+            console.log err
+
+insertMatches = (regionUpper, matchData) ->
+    console.log testCount+' - INSERTING MATCHDATA - REGION: '+regionUpper+' - TIMESTAMP: '+timestamp
+    testCount++
+    matchData['timestamp'] = timestamp+300
+    Matches.insert(matchData)
+    #if Matches.find({region: regionUpper, matchId: matchData.matchId, timestamp: timestamp+300}).count() == 0
+    #    console.log 'INSERTING MATCHDATA - REGION: '+regionUpper+' - TIMESTAMP: '+timestamp
+    #    Matches.insert(matchData)
+    #else
+    #    console.log 'MATCH ALREADY EXIST'
 
 checkForChampions = (region, regionUpper, matchData) ->
     for participant in matchData.participants
@@ -133,10 +152,12 @@ updateChampionObj = (region, regionUpper, matchData, participant, championId) ->
 
 getTeamsBanData = (region, regionUpper, matchData) ->
     teamsBanDataResult = []
-    for teamsBanData in matchData.teams[0].bans
-        teamsBanDataResult.push(teamsBanData)
-    for teamsBanData in matchData.teams[1].bans
-        teamsBanDataResult.push(teamsBanData)
+    if matchData.teams[0].bans != undefined
+        for teamsBanData in matchData.teams[0].bans
+            teamsBanDataResult.push(teamsBanData)
+    if matchData.teams[1].bans != undefined
+        for teamsBanData in matchData.teams[1].bans
+            teamsBanDataResult.push(teamsBanData)
     if teamsBanDataResult.length > 0
         for teamsBanData in teamsBanDataResult
             addBansToEachChampion(region, regionUpper, teamsBanData)
