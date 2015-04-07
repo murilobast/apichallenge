@@ -1,10 +1,10 @@
 template(name="display")
 	.content
 		.content__header
-			h1.content__header__title I'm no pizzerino
+			h1 {{session "title"}}
 			#counter
 		.content__body
-			.content__body__featured.animated.rollIn
+			.content__body__featured.animated.fadeIn
 				.content__body__featured__header
 					h1.content__body__featured__header__number.count #1
 					h3.content__body__featured__header__title {{first.name}}
@@ -21,7 +21,7 @@ template(name="display")
 					+champion
 		+infoModal
 template(name="champion")
-	li.content__body__champions__champion.animated.rollIn
+	li.content__body__champions__champion.animated.fadeIn
 		img(src="http://ddragon.leagueoflegends.com/cdn/5.6.1/img/champion/{{key}}.png").content__body__champions__champion__image.circle
 		.content__body__champions__champion__rate
 			p.content__body__champions__champion__rate__text Win rate

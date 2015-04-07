@@ -6,5 +6,48 @@
 	bottom 0
 	float left
 	width 230px 
-	background $grey 
-	depth(1)
+	background $purple-grey 
+	depth(3)
+	&__header
+		padding 10px 20px
+		height 64px
+		border-bottom 1px solid $border-grey
+		&__social
+			font-size 14px
+			font-weight 600  
+			transition(all 0.4s)
+			cursor pointer
+			padding 0 5px
+			&:hover
+				color $light-teal
+	&__body
+		padding 10px 0
+		&__link
+			padding 5px 10px
+			display block
+			background $light-teal 
+			position relative
+			transition(all 0.4s)
+			&:after
+				content ''
+				position absolute
+				height 100%
+				width 5px
+				background $grey 
+				top 0
+				right 0
+				transition(all 0.2s)
+			&:hover
+				background $grey
+				&:after
+					background $red 
+			&.active
+				&:after
+					background $red
+	&__footer
+		bottom 0
+		position absolute
+		overflow hidden
+		width 100%
+		padding 10px 20px
+		border-top 1px solid $border-grey

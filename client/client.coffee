@@ -4,8 +4,12 @@ FlowRouter.route '/wins/:server',
         sort = {
             winrate : -1
         }
-        @register 'champions', Meteor.subscribe 'champions', server, sort, 124, 0
-    action: ->
+        @register 'champions', Meteor.subscribe 'champions', server, sort, 15, 0
+    action: (params) ->
+        server = params.server.toUpperCase()
+        Meta.setTitle("Win Rate " + server)
+        Session.set 'title', "Highest win rate " + server
+        Session.set 'type', "wins"
         FlowLayout.render('layout', { main: "display" })
 
 FlowRouter.route '/losses/:server',
@@ -14,8 +18,12 @@ FlowRouter.route '/losses/:server',
         sort = {
             winrate : 1
         }
-        @register 'champions', Meteor.subscribe 'champions', server, sort, 124, 0
-    action: ->
+        @register 'champions', Meteor.subscribe 'champions', server, sort, 15, 0
+    action: (params) ->
+        server = params.server.toUpperCase()
+        Meta.setTitle("Worst Win Rate" + server)
+        Session.set 'title', "Lowest win rate " + server
+        Session.set 'type', "losses"
         FlowLayout.render('layout', { main: "display" })
 
 FlowRouter.route '/bans/:server',
@@ -24,8 +32,12 @@ FlowRouter.route '/bans/:server',
         sort = {
             bans: -1
         }
-        @register 'champions', Meteor.subscribe 'champions', server, sort, 124, 0
-    action: ->
+        @register 'champions', Meteor.subscribe 'champions', server, sort, 15, 0
+    action: (params) ->
+        server = params.server.toUpperCase()
+        Meta.setTitle("Most Banned" + server)
+        Session.set 'title', "Most banned champions " + server
+        Session.set 'type', "bans"
         FlowLayout.render('layout', { main: "display" })
 
 FlowRouter.route '/picks/:server',
@@ -34,8 +46,12 @@ FlowRouter.route '/picks/:server',
         sort = {
             games: -1
         }
-        @register 'champions', Meteor.subscribe 'champions', server, sort, 124, 0
-    action: ->
+        @register 'champions', Meteor.subscribe 'champions', server, sort, 15, 0
+    action: (params) ->
+        server = params.server.toUpperCase()
+        Meta.setTitle("Most Played" + server)
+        Session.set 'title', "Most played champions " + server
+        Session.set 'type', "picks"
         FlowLayout.render('layout', { main: "display" })
 
 Template.layout.helpers
@@ -58,6 +74,24 @@ Template.body.rendered = () ->
         cursorborderradius: 0,
         mousescrollstep: 60
     })
+    $('#select-server').selectize({
+    })
 
-Transitions.transitionOut = 'fadeOut'
-Transitions.transitionIn = 'fadeIn'
+
+Handlebars.registerHelper 'session', (input) ->
+    Session.get(input);
+
+Meta.config
+    options:
+        title: "SITENAME"
+        suffix: "Urf"
+
+
+
+# date = new Date
+# dateFlat = new Date
+# dateFlat.setMinutes(Math.round(dateFlat.getMinutes()/5) * 5) % 60
+# dateFlat.setSeconds(0)
+# if dateFlat.getMinutes() > date.getMinutes()
+#     dateFlat.setMinutes(dateFlat.getMinutes - 5)
+# date = Number(dateFlat).toString().slice(0,-3)
