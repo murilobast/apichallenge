@@ -56,10 +56,10 @@ getMatchIds = (region) ->
             console.log err
             timestamp = timestamp-300
 
-tryEveryRegion = ->
-    for region in regions
-        getMatchIds(region)
-tryEveryRegion()
+# tryEveryRegion = ->
+#     for region in regions
+#         getMatchIds(region)
+# tryEveryRegion()
 
 getMatches = (region, regionUpper, matchId) ->
     url = 'https://' + region + '.api.pvp.net/api/lol/' + region + '/v2.2/match/' + matchId + '?includetimestampline=false&api_key=' + apiKey

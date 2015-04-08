@@ -5,6 +5,13 @@ FlowRouter.route '/',
         Session.set 'first', {key: 'Katarina'}
         FlowLayout.render('layout', { main: "home" })
 
+FlowRouter.route '/stats',
+    action: () ->
+        Meta.setTitle("Stats")
+        Session.set 'title', "Stats"
+        Session.set 'first', {key: 'Katarina'}
+        FlowLayout.render('layout', { main: "stats" })
+
 FlowRouter.route '/wins/:server',
     subscriptions: (params) ->
         server = params.server.toUpperCase()
