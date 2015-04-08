@@ -6,7 +6,6 @@ template(name="side")
 			a.side__header__social Facebook
 		.side__body
 			select.side__body__select#select-server
-				option(value="all") All (doesn't work yet)
 				option(value="br") Brazil
 				option(value="eune") EU Nordic & East
 				option(value="euw") EU West
@@ -17,6 +16,7 @@ template(name="side")
 				option(value="oce") Oceania
 				option(value="ru") Russia
 				option(value="tr") Turkey
+				option(value="all") All (doesn't work yet)
 			a(href="" class="{{active 'wins'}}" name='wins').side__body__link.wins Highest win rate
 			a(href="" class="{{active 'losses'}}" name='losses').side__body__link.losses Lowest win rate
 			a(href="" class="{{active 'picks'}}" name='picks').side__body__link.picks Most picked Champion
