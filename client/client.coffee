@@ -79,15 +79,15 @@ Template.layout.helpers
         bg.key
 
 Template.body.rendered = () ->
-    $("html").niceScroll({
-        zindex: 1240,
-        cursorcolor: '#fff',
-        cursoropacitymin: 0.05,
-        cursoropacitymax: 0.3,
-        cursorborder: 0,
-        cursorborderradius: 0,
-        mousescrollstep: 60
-    })
+    # $("html").niceScroll({
+    #     zindex: 1240,
+    #     cursorcolor: '#fff',
+    #     cursoropacitymin: 0.05,
+    #     cursoropacitymax: 0.3,
+    #     cursorborder: 0,
+    #     cursorborderradius: 0,
+    #     mousescrollstep: 60
+    # })
     $('#select-server').selectize({
     })
 
