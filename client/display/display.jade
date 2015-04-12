@@ -38,7 +38,8 @@ template(name="infoModal")
 	.blankscreen
 	.modal.animated
 		.modal__header
-			h3.modal__header__title Modal Info
+			h3.modal__header__title {{getInfo.name}}
+			p.modal__header__subtitle {{getInfo.title}}
 		.modal__body
 			.modal__body__info
 				img(src="http://ddragon.leagueoflegends.com/cdn/5.6.1/img/champion/{{getInfo.key}}.png").modal__body__info__image.circle
@@ -55,6 +56,12 @@ template(name="infoModal")
 				.modal__body__stats__item
 					.modal__body__stats__item__text Win rate
 					.modal__body__stats__item__value {{parseWinrate getInfo.winrate}}%
+				.modal__body__stats__item
+					.modal__body__stats__item__text Loss rate
+					.modal__body__stats__item__value {{parseWinrate getInfo.lossrate}}%
+				.modal__body__stats__item
+					.modal__body__stats__item__text Pick rate
+					.modal__body__stats__item__value {{parseWinrate getInfo.pickrate}}%
 				.modal__body__stats__item
 					.modal__body__stats__item__text Kills
 					.modal__body__stats__item__value {{getInfo.kills}}

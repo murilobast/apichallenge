@@ -17,10 +17,10 @@ template(name="side")
 				option(value="ru") Russia
 				option(value="tr") Turkey
 				option(value="all") All (doesn't work yet)
-			a(href="" class="{{active 'wins'}}" name='wins').side__body__link.wins Highest win rate
-			a(href="" class="{{active 'losses'}}" name='losses').side__body__link.losses Lowest win rate
-			a(href="" class="{{active 'picks'}}" name='picks').side__body__link.picks Most picked Champion
-			a(href="" class="{{active 'bans'}}" name='bans').side__body__link.bans Most banned Champion
+			a(class="{{active 'wins'}}" name='wins').side__body__link.wins Highest win rate
+			a(class="{{active 'losses'}}" name='losses').side__body__link.losses Lowest win rate
+			a(class="{{active 'picks'}}" name='picks').side__body__link.picks Most picked Champion
+			a(class="{{active 'bans'}}" name='bans').side__body__link.bans Most banned Champion
 		.side__footer
 			p.muted the-site-name
 			p.muted Murilobast

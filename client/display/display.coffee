@@ -64,6 +64,17 @@ Template.champion.events
 	'click .openModal': ->
 		showModal(@)
 
+Template.infoModal.rendered = () ->
+	 $(".modal__body__stats").niceScroll({
+        zindex: 1240,
+        cursorcolor: '#fff',
+        cursoropacitymin: 0.05,
+        cursoropacitymax: 0.3,
+        cursorborder: 0,
+        cursorborderradius: 0,
+        mousescrollstep: 60
+    })
+
 Template.infoModal.helpers
 	'getInfo': ->
 		Session.get 'info'

@@ -10,8 +10,6 @@ stylus
 http
 chfritz:easycron
 mquandalle:jade
-meteorhacks:flow-router
-meteorhacks:flow-layout
 msavin:mongol
 raix:ui-progress-circle
 jquery
@@ -20,3 +18,4 @@ settinghead:auto-nprogress
 natestrauser:animate-css
 yasinuslu:blaze-meta
 jeremy:selectize
+iron:router
