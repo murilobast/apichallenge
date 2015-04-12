@@ -1,14 +1,20 @@
 apiKey = Assets.getText 'apikey'
 regions = ['br', 'eune', 'euw', 'kr', 'lan', 'las', 'na', 'oce', 'ru', 'tr']
-timestamp = 1428393900
+#timestamp = 1428393900
 testCount = 1
 
-#For testing
-#Meteor.setInterval (->
-#    for region in regions
-#        getMatchIds(region)
-#    timestamp = timestamp-300
-#    ), 5000
+#For testing/production
+Meteor.setInterval (->
+    currentTimestamp = getTime()
+    oldTimestamp = Timestamp.findOne().timestamp #set a timestamp first Timestamp.insert({timestamp: TIMESTAMP})
+    timeDifference = currentTimestamp-oldTimestamp
+    if timeDifference > 600
+        console.log testCount
+        testCount++
+        Timestamp.update(timestamp: oldTimestamp, {$set:{timestamp: oldTimestamp+300}})
+        for region in regions
+            getMatchIds(region, oldTimestamp)
+    ), 10000
 
 getTime = ->
     date = new Date
@@ -19,7 +25,6 @@ getTime = ->
         dateFlat.setMinutes(dateFlat.getMinutes() - 5)
     date = Number(dateFlat).toString().slice(0,-3)
     date
-
 #For production
 #everyHour = new Cron((->
 #    timestamp = getTime()
@@ -39,13 +44,13 @@ checkCollection = ->
     console.log 'test'
 #checkCollection()
 
-getMatchIds = (region) ->
-    url = 'https://' + region + '.api.pvp.net/api/lol/' + region + '/v4.1/game/ids?beginDate=' + timestamp + '&api_key=' + apiKey
+getMatchIds = (region, oldTimestamp) ->
+    url = 'https://' + region + '.api.pvp.net/api/lol/' + region + '/v4.1/game/ids?beginDate=' + oldTimestamp + '&api_key=' + apiKey
     regionUpper = region.toUpperCase()
     HTTP.get url, (err, result) ->
         if not err
             if result.statusCode == 200
-                console.log "GOT MATCHID'S FOR: "+regionUpper+' - TIMESTAMP: '+timestamp
+                console.log "GOT MATCHID'S FOR: "+regionUpper+' - TIMESTAMP: '+oldTimestamp
                 matchIds = result.data
                 if matchIds.length > 0
                     for matchId in matchIds
@@ -54,12 +59,12 @@ getMatchIds = (region) ->
                 console.log "GET MATCHID'S - ERROR - STATUSCODE: "+matchIds.statusCode
         else
             console.log err
-            timestamp = timestamp-300
 
-# tryEveryRegion = ->
-#     for region in regions
-#         getMatchIds(region)
-# tryEveryRegion()
+
+#tryEveryRegion = ->
+#    for region in regions
+#        getMatchIds(region)
+#tryEveryRegion()
 
 getMatches = (region, regionUpper, matchId) ->
     url = 'https://' + region + '.api.pvp.net/api/lol/' + region + '/v2.2/match/' + matchId + '?includetimestampline=false&api_key=' + apiKey
@@ -77,7 +82,7 @@ getMatches = (region, regionUpper, matchId) ->
             console.log err
 
 insertMatches = (regionUpper, matchData) ->
-    console.log testCount+' - INSERTING MATCHDATA - REGION: '+regionUpper+' - TIMESTAMP: '+timestamp
+    console.log testCount+' - INSERTING MATCHDATA - REGION: '+regionUpper+' - TIMESTAMP: '+oldTimestamp
     testCount++
     matchData['timestamp'] = timestamp+300
     Matches.insert(matchData)
