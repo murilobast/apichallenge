@@ -1,20 +1,20 @@
-apiKey = Assets.getText 'apikey'
+# apiKey = Assets.getText 'apikey'
 regions = ['br', 'eune', 'euw', 'kr', 'lan', 'las', 'na', 'oce', 'ru', 'tr']
 #timestamp = 1428393900
 testCount = 1
 
 #For testing/production
-Meteor.setInterval (->
-    currentTimestamp = getTime()
-    oldTimestamp = Timestamp.findOne().timestamp #set a timestamp first Timestamp.insert({timestamp: TIMESTAMP})
-    timeDifference = currentTimestamp-oldTimestamp
-    if timeDifference > 600
-        console.log testCount
-        testCount++
-        Timestamp.update(timestamp: oldTimestamp, {$set:{timestamp: oldTimestamp+300}})
-        for region in regions
-            getMatchIds(region, oldTimestamp)
-    ), 10000
+# Meteor.setInterval (->
+#     currentTimestamp = getTime()
+#     oldTimestamp = Timestamp.findOne().timestamp #set a timestamp first Timestamp.insert({timestamp: TIMESTAMP})
+#     timeDifference = currentTimestamp-oldTimestamp
+#     if timeDifference > 600
+#         console.log testCount
+#         testCount++
+#         Timestamp.update(timestamp: oldTimestamp, {$set:{timestamp: oldTimestamp+300}})
+#         for region in regions
+#             getMatchIds(region, oldTimestamp)
+#     ), 10000
 
 getTime = ->
     date = new Date
