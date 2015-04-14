@@ -1,19 +1,10 @@
 head
-	title RITOCHALLENGE
+	title lelking
 	meta(http-equiv="content-type", content="text/html; charset=UTF-8")
 	meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
 body
 	+side
-	.fixedBG(style="background-image: url(http://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{firstChamp}}_0.jpg)").animated.fadeIn
+	if firstChamp
+		.fixedBG(style="background-image: url(http://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{firstChamp}}.jpg)").animated.fadeIn
 	.container
 		+Router
-
-template(name="layout")
-	+side
-	.fixedBG(style="background-image: url(http://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{firstChamp}}_0.jpg)").animated.fadeIn
-	if isReady
-		.container
-			+Template.dynamic template=main
-	else
-		.container
-			+stats

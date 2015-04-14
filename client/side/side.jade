@@ -1,9 +1,11 @@
 template(name="side")
 	aside.side
 		.side__header
-			h3 Side header Title
-			a.side__header__social Twitter
-			a.side__header__social Facebook
+			a(href="/")
+				h1.side__header__title LELKING
+			.home__line(class="{{active 'home'}}")
+			//- a.side__header__social Twitter
+			//- a.side__header__social Facebook
 		.side__body
 			select.side__body__select#select-server
 				option(value="br") Brazil

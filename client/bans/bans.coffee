@@ -9,20 +9,16 @@ showModal = (info) ->
 		modal.addClass('fadeIn')
 	Session.set 'info', info
 
-Template.bans.rendered = () ->
-	region = Session.get 'region'
-	sort = Session.get 'sort'
-	Meteor.subscribe 'champions', region, sort, 15, 0
-
 Template.bans.helpers 
 	'first': ->
-		first = Champions.findOne()
+		first = this[0]
 		Session.set 'first', first
 		first
 	'champions': ->
-		Champions.find({},{skip: 1})
+		this.shift()
+		this
 	'banrate': (banrate) ->
-		banrate = Champions.findOne().banrate
+		banrate = Session.get('first').banrate
 		banrate = parseInt(banrate*100)
 		banrate
 

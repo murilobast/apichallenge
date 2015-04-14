@@ -9,20 +9,16 @@ showModal = (info) ->
 		modal.addClass('fadeIn')
 	Session.set 'info', info
 
-Template.picks.rendered = () ->
-	region = Session.get 'region'
-	sort = Session.get 'sort'
-	Meteor.subscribe 'champions', region, sort, 15, 0
-
 Template.picks.helpers 
 	'first': ->
-		first = Champions.findOne()
+		first = this[0]
 		Session.set 'first', first
 		first
 	'champions': ->
-		Champions.find({},{skip: 1})
+		this.shift()
+		this
 	'pickrate': (pickrate) ->
-		pickrate = Champions.findOne().pickrate
+		pickrate = Session.get('first').pickrate
 		pickrate = parseInt(pickrate*100)
 		pickrate
 

@@ -11,23 +11,22 @@ showModal = (info) ->
 
 hideModal = () ->
 	blankscreen = $('.blankscreen')
-	# blankscreen.addClass('fadeOut')
 	blankscreen.css('display', 'none')
 	modal = $('.modal')
 	if modal.css('display') == 'block'
 		modal.css('top', '1px')
-		# modal.addClass('fadeOut')
 		modal.css('display', 'none')
 
 Template.display.helpers 
 	'first': ->
-		first = Champions.findOne()
+		first = this[0]
 		Session.set 'first', first
 		first
 	'champions': ->
-		Champions.find({},{skip: 1})
+		this.shift()
+		this
 	'winrate': (winrate) ->
-		winrate = Champions.findOne().winrate
+		winrate = Session.get('first').winrate
 		winrate = parseInt(winrate*100)
 		winrate
 	'kda': (champion) ->
@@ -47,12 +46,7 @@ Template.champion.rendered = ->
 	
 Template.champion.helpers
 	'winrate': ->
-		# wins = this.wins
-		# losses = this.losses
-		# total = wins + losses
-		# winrate = (wins/total)*100
 		parseInt(this.winrate*100)
-
 	'kda': ->
 		games = this.wins + this.losses
 		kills = parseInt(this.kills/games)
@@ -72,7 +66,7 @@ Template.infoModal.rendered = () ->
         cursoropacitymax: 0.3,
         cursorborder: 0,
         cursorborderradius: 0,
-        mousescrollstep: 60
+        mousescrollstep: 30
     })
 
 Template.infoModal.helpers
@@ -80,7 +74,14 @@ Template.infoModal.helpers
 		Session.get 'info'
 	'parseWinrate': (winrate) ->
 		parseInt(winrate*100)
-
+	'getKDA': (champion) ->
+		if champion
+			games = champion.wins + champion.losses
+			kills = parseInt(champion.kills/games)
+			deaths = parseInt(champion.deaths/games)
+			assists = parseInt(champion.assists/games)
+			kills+'/'+deaths+'/'+assists
+		
 Template.infoModal.events
 	'click .close': ->
 		hideModal()

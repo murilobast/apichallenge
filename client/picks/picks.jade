@@ -9,11 +9,12 @@ template(name="picks")
 					h1.content__body__featured__header__number.count #1
 					h3.content__body__featured__header__title {{first.name}}
 					p.content__body__featured__header__subtitle {{first.title}}
-				img(src="http://ddragon.leagueoflegends.com/cdn/5.6.1/img/champion/{{first.key}}.png").content__body__featured__image.circle
+				if first
+					img(src="http://ddragon.leagueoflegends.com/cdn/5.6.1/img/champion/{{first.key}}.png").content__body__featured__image.circle
 				.content__body__featured__stats
 					p.content__body__featured__stats__rate Pick rate
 					+progressCircle progress=pickrate radius="50" class="green"
-					p.content__body__featured__stats__kda Games computed
+					p.content__body__featured__stats__kda Total games
 					p.content__body__featured__stats__kda {{first.games}}
 				a(href="").content__body__featured__more.openModal More info
 			ul.content__body__champions
@@ -29,7 +30,7 @@ template(name="picksChampion")
 		.content__body__champions__champion__info
 			h3.content__body__champions__champion__info__name {{name}}
 			p.content__body__champions__champion__info__name {{title}}
-			h3.content__body__champions__champion__info__name Games computed
+			h3.content__body__champions__champion__info__name Total games
 			p.content__body__champions__champion__info__name {{games}}
 		.content__body__champions__champion__footer
 			h3.content__body__champions__champion__footer__number.count #2

@@ -24,7 +24,8 @@ getTime = ->
     if dateFlat.getMinutes() > date.getMinutes()
         dateFlat.setMinutes(dateFlat.getMinutes() - 5)
     date = Number(dateFlat).toString().slice(0,-3)
-    date
+    Timestamp.insert({timestamp: date})
+
 #For production
 #everyHour = new Cron((->
 #    timestamp = getTime()

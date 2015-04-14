@@ -9,7 +9,6 @@ Template.side.helpers
 Template.side.events
 	'click a': (evt, tmpl) ->
 		name = evt.currentTarget.name
-		console.log name
 		server = tmpl.find('#select-server').value
 		Router.go('/'+name+'/'+server)
 
