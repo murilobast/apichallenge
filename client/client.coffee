@@ -8,7 +8,7 @@ Router.route '/',
         this.next()
     action: ->
         this.render 'home', data: ->
-            Champions.find({},{sort: {winrate: -1}, limit: 25}).fetch()
+            Champions.find({},{sort: {winRate: -1}, limit: 25}).fetch()
 
 Router.route '/wins/:region', 
     waitOn: ->
@@ -21,9 +21,8 @@ Router.route '/wins/:region',
         Session.set 'type', "wins"
         this.next()
     action: ->
-        if this.ready()
-            this.render 'display', data: ->
-                Champions.find({},{sort: {winrate: -1}, limit: 25}).fetch()
+        this.render 'display', data: ->
+            Champions.find({},{sort: {winRate: -1}, limit: 25}).fetch()
 
 Router.route '/losses/:region', 
     waitOn: ->
@@ -36,9 +35,8 @@ Router.route '/losses/:region',
         Session.set 'type', "losses"
         this.next()
     action: ->
-        if this.ready()
-            this.render 'display', data: ->
-                Champions.find({},{sort: {lossrate: -1}, limit: 25}).fetch()
+        this.render 'display', data: ->
+            Champions.find({},{sort: {winRate: 1}, limit: 25}).fetch()
 
 Router.route '/picks/:region', 
     waitOn: ->
@@ -51,9 +49,8 @@ Router.route '/picks/:region',
         Session.set 'type', "picks"
         this.next()
     action: ->
-        if this.ready()
-            this.render 'picks', data: ->
-                Champions.find({},{sort: {games: -1}, limit: 25}).fetch()
+        this.render 'picks', data: ->
+            Champions.find({},{sort: {games: -1}, limit: 25}).fetch()
 
 Router.route '/bans/:region', 
     waitOn: ->
@@ -66,9 +63,8 @@ Router.route '/bans/:region',
         Session.set 'type', "bans"
         this.next()
     action: ->
-        if this.ready()
-            this.render 'bans', data: ->
-                Champions.find({},{sort: {bans: -1}, limit: 15}).fetch()
+        this.render 'bans', data: ->
+            Champions.find({},{sort: {bans: -1}, limit: 25}).fetch()
 
 Template.body.helpers
     'firstChamp': ->

@@ -17,10 +17,10 @@ Template.bans.helpers
 	'champions': ->
 		this.shift()
 		this
-	'banrate': (banrate) ->
-		banrate = Session.get('first').banrate
-		banrate = parseInt(banrate*100)
-		banrate
+	'banRate': (banRate) ->
+		banRate = Session.get('first').banRate
+		banRate = parseInt(banRate*100)
+		banRate
 
 Template.bans.events
 	'click .content__body__featured__more': ->
@@ -31,8 +31,8 @@ Template.bansChampion.rendered = ->
 		$(this).text('#'+(number+1))
 
 Template.bansChampion.helpers
-	'banrate': ->
-		parseInt(this.banrate*100)
+	'banRate': ->
+		parseInt(this.banRate*100)
 
 	'kda': ->
 		games = this.wins + this.losses

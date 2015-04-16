@@ -17,10 +17,10 @@ Template.picks.helpers
 	'champions': ->
 		this.shift()
 		this
-	'pickrate': (pickrate) ->
-		pickrate = Session.get('first').pickrate
-		pickrate = parseInt(pickrate*100)
-		pickrate
+	'pickRate': (pickRate) ->
+		pickRate = Session.get('first').pickRate
+		pickRate = parseInt(pickRate*100)
+		pickRate
 
 Template.picks.events
 	'click .content__body__featured__more': ->
@@ -31,8 +31,8 @@ Template.picksChampion.rendered = ->
 		$(this).text('#'+(number+1))
 
 Template.picksChampion.helpers
-	'pickrate': ->
-		parseInt(this.pickrate*100)
+	'pickRate': ->
+		parseInt(this.pickRate*100)
 
 	'kda': ->
 		games = this.wins + this.losses

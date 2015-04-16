@@ -25,10 +25,10 @@ Template.display.helpers
 	'champions': ->
 		this.shift()
 		this
-	'winrate': (winrate) ->
-		winrate = Session.get('first').winrate
-		winrate = parseInt(winrate*100)
-		winrate
+	'winRate': (winRate) ->
+		winRate = Session.get('first').winRate
+		winRate = parseInt(winRate*100)
+		winRate
 	'kda': (champion) ->
 		games = champion.wins + champion.losses
 		kills = parseInt(champion.kills/games)
@@ -45,8 +45,8 @@ Template.champion.rendered = ->
 		$(this).text('#'+(number+1))
 	
 Template.champion.helpers
-	'winrate': ->
-		parseInt(this.winrate*100)
+	'winRate': ->
+		parseInt(this.winRate*100)
 	'kda': ->
 		games = this.wins + this.losses
 		kills = parseInt(this.kills/games)
@@ -81,6 +81,8 @@ Template.infoModal.helpers
 			deaths = parseInt(champion.deaths/games)
 			assists = parseInt(champion.assists/games)
 			kills+'/'+deaths+'/'+assists
+	'getInteger': (val) ->
+		parseInt(val)
 		
 Template.infoModal.events
 	'click .close': ->
