@@ -1,14 +1,12 @@
 Router.route '/', 
     waitOn: ->
-        Meteor.subscribe 'champions', nBeforeAction: ->
         Meta.setTitle("Home".toUpperCase())
         Session.set 'title', "Home"
         Session.set 'type', "home"
         Session.set 'first', {key: 'Diana_2'}
         this.next()
     action: ->
-        this.render 'home', data: ->
-            Champions.find({},{sort: {winRate: -1}, limit: 25}).fetch()
+        this.render 'home'
 
 Router.route '/wins/:region', 
     waitOn: ->
