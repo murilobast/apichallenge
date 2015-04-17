@@ -72,7 +72,7 @@ Router.route '/highestkd/:region',
         region = this.params.region.toUpperCase()
         Meta.setTitle("Highest KD".toUpperCase())
         Session.set 'title', "Highest KD ratio " + region
-        Session.set 'type', "kd"
+        Session.set 'type', "highestkd"
         this.next()
     action: ->
         this.render 'kd', data: ->
