@@ -13,7 +13,7 @@ More on Meteor and the differences between plain NodeJS and other frameworks [he
 
 The application does not need to pull any data serverside and update the database every 5 minute as it did in the beginning. Instead a script was made to pull every match from the new API Challenge[ endpoint](https://developer.riotgames.com/api/methods#!/980/3340). Another script gets the champion information, makes champion objects, updates the champion objects and finally inserts them to the database. The scripts does not run with Meteor and that is also why they are in the "tests" folder. Everything in the "tests" folder does not get executed. The scripts are meant to run separately.
 ##Quick Guide
-This guide is not very friendly nor complete and it is more for the people who already has gotten their feet wet regarding NodeJS, Meteor, Git etc. Although beginners can just follow the straight forward guides on the following websites and of course use google to troubleshoot problems, informations etc.
+This guide is not very friendly nor complete and it is more for the people who already has gotten their feet wet regarding NodeJS, Meteor, Git etc. Although beginners can just follow the straight forward guides on the following websites and of course use google to troubleshoot problems, information etc.
 
 #####What to install
 * [Meteor](https://www.meteor.com/install)
