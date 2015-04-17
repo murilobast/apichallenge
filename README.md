@@ -27,4 +27,4 @@ This guide is not very friendly nor complete and it is more for the people who a
 ...
 
 ##Contribute
-Every little feedback and help is needed for this repo! Please give us all those pull requests and if that's too much of an effort please tweet us! @Deam_me @Murilobastdev or send us a mail! Deam@lelking.com Murilobast@lelking.com - DON'T BE AFRAID! :-)
+Every little feedback and help is needed for this repo! Please give us all those pull requests and if that's too much of an effort please tweet us! @Deam_me @Murilobastdev or send us a mail! Deam@lelking.com Murilobast@lelking.com - DON'T BE AFRAID (we don't bite)! :-)
