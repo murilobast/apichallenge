@@ -19,7 +19,9 @@ This guide is not very friendly nor complete and it is more for the people who a
 * [Meteor](https://www.meteor.com/install)
 * [MongoDB](https://www.mongodb.org/downloads)
 
-#####Which packages to use
-* [MongoDB driver](https://www.npmjs.com/package/mongodb)
+#####Which packages to use for the scripts
+* [MongoDB Node.JS Driver](https://www.npmjs.com/package/mongodb)
 * [Coffee-script](https://www.npmjs.com/package/coffee-script)
 
+#####How to use
+...
