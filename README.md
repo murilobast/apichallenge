@@ -1,7 +1,7 @@
 # LoL - API Challenge
 This Github repo is made for LoL API Challenge @RiotGamesAPI. This was an URF specific challenge more information can be found [here](https://developer.riotgames.com/discussion/riot-games-api/show/bX8Z86bm).
 <br>
-The result of this project is a website which is [lelking.com](http://www.lelking.com/). The project is made in [Meteor](https://www.meteor.com/) and a further explanation about everything on the project and this repo is below.
+The result of this project is a website which is [lelking.com](http://www.lelking.com/). The project is made with [Meteor](https://www.meteor.com/) and a further explanation about everything on the project and this repo is below.
 ## What is meteor? And why?
 > Meteor is a complete open source platform for building web and mobile apps in plain JavaScript.
 
@@ -25,3 +25,6 @@ This guide is not very friendly nor complete and it is more for the people who a
 
 #####How to use
 ...
+
+##Contribute
+Every little feedback and help is needed for this repo!
