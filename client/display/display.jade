@@ -68,10 +68,10 @@ template(name="infoModal")
 					.modal__body__stats__item__value {{parseWinrate getInfo.banRate}}%
 				.modal__body__stats__item
 					.modal__body__stats__item__text Bans
-					.modal__body__stats__item__value {{getInfo.kills}}
+					.modal__body__stats__item__value {{getInfo.bans}}
 				.modal__body__stats__item
 					.modal__body__stats__item__text KD
-					.modal__body__stats__item__value {{getInfo.KD}}
+					.modal__body__stats__item__value {{toFixed getInfo.KD}}
 				.modal__body__stats__item
 					.modal__body__stats__item__text Kills
 					.modal__body__stats__item__value {{getInfo.kills}}

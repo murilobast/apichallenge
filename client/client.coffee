@@ -66,6 +66,33 @@ Router.route '/bans/:region',
         this.render 'bans', data: ->
             Champions.find({},{sort: {bans: -1}, limit: 25}).fetch()
 
+Router.route '/highestkd/:region', 
+    waitOn: ->
+            region = this.params.region.toUpperCase()
+            Meteor.subscribe 'champions', region
+    onBeforeAction: ->
+        region = this.params.region.toUpperCase()
+        Meta.setTitle("Highest KD".toUpperCase())
+        Session.set 'title', "Highest KD ratio " + region
+        Session.set 'type', "kd"
+        this.next()
+    action: ->
+        this.render 'kd', data: ->
+            Champions.find({},{sort: {KD: -1}, limit: 25}).fetch()
+
+Router.route '/lowestkd/:region', 
+    waitOn: ->
+            region = this.params.region.toUpperCase()
+            Meteor.subscribe 'champions', region
+    onBeforeAction: ->
+        region = this.params.region.toUpperCase()
+        Meta.setTitle("Lowest KD".toUpperCase())
+        Session.set 'title', "Lowest KD ratio " + region
+        Session.set 'type', "lowestkd"
+        this.next()
+    action: ->
+        this.render 'kd', data: ->
+            Champions.find({},{sort: {KD: 1}, limit: 25}).fetch()
 Template.body.helpers
     'firstChamp': ->
         if Session.get 'first'

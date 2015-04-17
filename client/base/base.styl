@@ -10,9 +10,12 @@
 	background-size cover 
 .container
 	background $transp-dark
-	position absolute
+	position fixed
 	left 230px
 	right 0 
+	top 0
+	bottom 0
+	overflow-y auto
 .content
 	width 100%
 	margin 0
@@ -77,7 +80,9 @@
 				padding 10px
 				padding-bottom 5px
 				display inline-block
-				width 40% 
+				width 45% 
+				@media screen and (max-width: 1230px)
+					width 90% 
 				margin 10px 20px
 				border 1px solid $border-grey
 				transition(all 0.4s ease)
@@ -95,6 +100,9 @@
 					&__text
 						line-height 26px
 				&__info
+					width 200px
+					display inline-block 
+					text-align center
 					p
 						line-height 26px 
 				&__footer

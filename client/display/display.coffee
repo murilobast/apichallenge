@@ -83,7 +83,9 @@ Template.infoModal.helpers
 			kills+'/'+deaths+'/'+assists
 	'getInteger': (val) ->
 		parseInt(val)
-		
+	'toFixed': (value) ->
+		if value
+			value.toFixed(2)
 Template.infoModal.events
 	'click .close': ->
 		hideModal()

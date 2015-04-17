@@ -1,7 +1,65 @@
 template(name="home")
-	.content
-		.content__header
-			h1 {{session "title"}}
-		.content__body
-			.content__body__info
-				p.content__body__info Hey, welcome to the LELKING!
+	.content__header
+		h1 {{session "title"}}
+	.content__body
+		.content__body__home
+			h3.content__body__home__title RIP URF
+			p.content__body__home__text Unnecessary flashs, teleports everywhere, 
+				i.highlighted "Immortal Sona"
+				, 
+				i.highlighted "Anoying Shaco"
+				, 
+				i.highlighted "Beyblade Katarina",
+				| who doesn't 
+				span.striked.muted hate
+				| remeber those 
+				span.striked.muted demons 
+				| champions?
+			p.content__body__home__text C'mon, hold your teardrop, we can still remember those funny days!
+			.content__body__home__divisor
+			p.content__body__home__text If you wanted to 
+				span.striked.muted tryhard
+				| win, you certainly have picked this champion
+			.content__body__home__champion
+				img(src="http://ddragon.leagueoflegends.com/cdn/5.6.1/img/champion/Sona.png").content__body__home__champion__img.circle
+				.content__body__home__champion__info
+					h3.content__body__home__champion__info__name Sona
+					p.content__body__home__champion__info__title Maven of the Strings
+				.content__body__home__champion__winrate
+					.content__body__home__champion__winrate__title Win rate
+					+progressCircle progress=58 radius="30" class="green"
+			p.content__body__home__text Or this one if you wanted to
+				span.striked.muted troll
+				| lose
+			.content__body__home__champion
+				img(src="http://ddragon.leagueoflegends.com/cdn/5.6.1/img/champion/Thresh.png").content__body__home__champion__img.circle
+				.content__body__home__champion__info
+					h3.content__body__home__champion__info__name Thresh
+					p.content__body__home__champion__info__title the Chain Warden
+				.content__body__home__champion__winrate
+					.content__body__home__champion__winrate__title Win rate
+					+progressCircle progress=39 radius="30" class="green"
+			.content__body__home__divisor
+			p.content__body__home__text You should be probably bored of this champion, cuz he was picked at least 2 times/game!
+			.content__body__home__champion
+				img(src="http://ddragon.leagueoflegends.com/cdn/5.6.1/img/champion/Ezreal.png").content__body__home__champion__img.circle
+				.content__body__home__champion__info
+					h3.content__body__home__champion__info__name Ezreal
+					p.content__body__home__champion__info__title the Prodigal Explorer
+				.content__body__home__champion__winrate
+					.content__body__home__champion__winrate__title Pick rate
+					+progressCircle progress=39 radius="30" class="green"
+			p.content__body__home__text And this one... You should probably hate her, infinite sustain, tons of damage,
+				span.striked.muted impossible to win,
+				| banned 7 times each 10 games...
+			.content__body__home__champion
+				img(src="http://ddragon.leagueoflegends.com/cdn/5.6.1/img/champion/Sona.png").content__body__home__champion__img.circle
+				.content__body__home__champion__info
+					h3.content__body__home__champion__info__name Thresh
+					p.content__body__home__champion__info__title the Chain Warden
+				.content__body__home__champion__winrate
+					.content__body__home__champion__winrate__title Ban rate
+					+progressCircle progress=69 radius="30" class="green"
+			.content__body__home__divisor
+			p.content__body__home__last There's more info, see these buttons at the left side? Well, click them and they'll show you more champions and more stats about each one! C'mon, it's free :B
+			p.content__body__home__last.muted Based in a batch of almost 500,000 Urf games.
