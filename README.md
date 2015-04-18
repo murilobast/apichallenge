@@ -27,4 +27,6 @@ This guide is not very friendly nor complete and it is more for the people who a
 ...
 
 ##Feedback
-Please give us some feedback! It's very appreciated and if you're struggling trying to understand something please tweet us or send us a mail. @Deam_me @Murilobast - Deam@Lelking.com Murilo@Lelking.com
+Please give us some feedback! It's very appreciated and if you're struggling trying to understand something please tweet us or send us a mail.
+<br>
+@Deam_me @Murilobast - Deam@Lelking.com Murilo@Lelking.com
