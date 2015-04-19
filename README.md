@@ -11,7 +11,8 @@ More on Meteor and the differences between plain NodeJS and other frameworks [he
 ##Why so little code in the server folder?
 >Fortunately everything changed after URF stopped and all the data could be pulled once.
 
-The application does not need to pull any data serverside and update the database every 5 minute as it did in the beginning. Instead a script was made to pull every match from the new API Challenge[ endpoint](https://developer.riotgames.com/api/methods#!/980/3340). Another script gets the champion information, makes champion objects, updates the champion objects and finally inserts them to the database. The scripts does not run with Meteor and that is also why they are in the "tests" folder. Everything in the "tests" folder does not get executed when running Meteor. The scripts are meant to run separately.
+The application does not need to pull any data serverside and update the database every 5 minute as it did in the beginning (you can see the old server code in the "tests" folder). Instead a script was made to pull every match from the new API Challenge[ endpoint](https://developer.riotgames.com/api/methods#!/980/3340). Another script gets the champion information, makes champion objects, updates the champion objects and finally inserts them to the database. The scripts does not run with Meteor and that is also why they are in the "tests" folder. Everything in the "tests" folder does not get executed when running Meteor. The scripts are meant to run separately.
+
 ##Quick Guide
 This guide is not very friendly nor complete and it is more for the people who already has gotten their feet wet regarding NodeJS, Meteor, Git etc. Although beginners can just follow the straight forward guides on the following websites and of course use google to troubleshoot problems, information etc.
 
@@ -20,9 +21,12 @@ This guide is not very friendly nor complete and it is more for the people who a
 * [MongoDB](https://www.mongodb.org/downloads)
 
 #####How to use
-1. Run getMatches.coffee in the terminal. `coffee getMatches.coffee`
-2. Run getChampions.coffee and follow the instructions in the code. (to uncomment delete the '#') `coffee getChampions.coffee` - Run this command every time you uncomment the code.
-3. 
+1. Clone the repository. `git clone https://github.com/murilobast/apichallenge.git`
+2. Open terminal and navigate to the folder.
+3. Write `meteor` - Meteor should start running locally now.
+4. Open a new terminal session.
+4. Run getMatches.coffee in the terminal. `coffee getMatches.coffee`
+5. Run getChampions.coffee and follow the instructions in the code. (to uncomment delete the '#') `coffee getChampions.coffee` - Run this command every time you uncomment the code.
 
 ##Feedback
 Please give us some feedback! It's very appreciated and if you're struggling trying to understand something please tweet us or send us a mail.

@@ -9,7 +9,7 @@ timestamp = 1428918000
 testCount = 1
 
 # Connection URL 
-url = 'mongodb://localhost:27017/DATABASE_NAME'
+url = 'mongodb://localhost:3001/meteor'
 # Use connect method to connect to the Server 
 MongoClient.connect url, (err, db) ->
     assert.equal null, err

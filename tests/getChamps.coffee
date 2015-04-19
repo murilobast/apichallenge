@@ -9,7 +9,7 @@ regions = ['br', 'eune', 'euw', 'kr', 'lan', 'las', 'na', 'oce', 'ru', 'tr', 'al
  
  
 # Connection URL 
-url = 'mongodb://localhost:27017/DATABASE_NAME'
+url = 'mongodb://localhost:3001/meteor'
  
 # Use connect method to connect to the Server 
 MongoClient.connect url, (err, db) ->
