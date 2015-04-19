@@ -37,10 +37,10 @@ MongoClient.connect url, (err, db) ->
     #    testCount0++
     #
     # --- To update more stats
-    updateMore(Champions)
-    for region in regions
-        regionUpper = region.toUpperCase()
-        loopThroughMatches(Champions, getMatches, regionUpper)
+    #updateMore(Champions)
+    #for region in regions
+    #    regionUpper = region.toUpperCase()
+    #    loopThroughMatches(Champions, getMatches, regionUpper)
         
 
 loopThroughMatches = (Champions, getMatches, regionUpper) ->
