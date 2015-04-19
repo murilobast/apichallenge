@@ -20,7 +20,9 @@ This guide is not very friendly nor complete and it is more for the people who a
 * [MongoDB](https://www.mongodb.org/downloads)
 
 #####How to use
-...
+1. Run getMatches.coffee in the terminal. `coffee getMatches.coffee`
+2. Run getChampions.coffee and follow the instructions in the code. (to uncomment delete the '#') `coffee getChampions.coffee` - Run this command every time you uncomment the code.
+3. 
 
 ##Feedback
 Please give us some feedback! It's very appreciated and if you're struggling trying to understand something please tweet us or send us a mail.
