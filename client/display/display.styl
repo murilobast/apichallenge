@@ -14,7 +14,7 @@
 	transition(all 0.4s)
 	height 420px 
 	width 400px
-	z-index 10
+	z-index 100
 	depth(3)
 	position fixed
 	top 1px
@@ -23,6 +23,9 @@
 	left 1px
 	margin auto
 	background $semi-transp-white
+	@media screen and (max-width: 420px)
+		width 300px
+		height 370px
 	border-radius(1px)
 	padding 5px 10px
 	&__header
@@ -42,17 +45,25 @@
 				width 100px
 				margin 5px auto
 				display block
+				@media screen and (max-width: 420px)
+					width 80px 
 		&__stats
 			display block
 			overflow-y scroll
 			height 190px
 			width 100% 
+			@media screen and (max-width: 420px)
+				height 160px
 			&__item
 				line-height 26px 
 				border-bottom 1px solid $light-grey
 				overflow hidden
 				width 80%
 				margin 0 auto 
+				@media screen and (max-width: 420px)
+					width 95% 
+					&__text
+						font-size 14px 
 				&__text
 					float left
 					clear left
