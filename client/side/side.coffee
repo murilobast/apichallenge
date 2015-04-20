@@ -15,6 +15,9 @@ Template.side.events
 		name = evt.currentTarget.name
 		server = tmpl.find('#select-server').value || "all"
 		Router.go('/'+name+'/'+server)
+		side = $('.side')
+		if side.hasClass('open')
+			side.removeClass('open')
 
 	'change #select-server': (evt, tmpl) ->
 		if Session.get('type') != 'home' 
@@ -22,3 +25,11 @@ Template.side.events
 			region = tmpl.find('#select-server').value
 			Session.set 'region', region
 			Router.go('/'+name+'/'+region)
+			side = $('.side')
+			if side.hasClass('open')
+				side.removeClass('open')
+				
+Template.mobileHeader.events
+	'click .mobile__header__menu': (evt, tmpl) ->
+		side = $('.side')
+		side.toggleClass('open')

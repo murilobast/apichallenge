@@ -32,6 +32,8 @@
 		border 1px solid $border-grey
 		depth(0)
 		transition(all 0.4s)
+		@media screen and (max-width: 640px)
+			width 100% 
 		&:hover
 			depth(1)
 		&__img
@@ -39,6 +41,9 @@
 			margin 5px    
 			float left
 			border-right 1px solid $white-transp
+			@media screen and (max-width: 640px)
+				width 64px
+				margin 5px
 		&__info
 			padding 10px
 			float left
@@ -48,6 +53,13 @@
 				line-height 40px 
 			&__title  
 				line-height 30px 
+			@media screen and (max-width: 640px)
+				padding 10px 0
+				&__name, &__title
+					font-size 14px 
+					line-height 24px 
+				&__title
+					font-size 12px 
 		&__winrate
 			float right
 			padding 5px 10px

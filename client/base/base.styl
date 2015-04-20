@@ -16,16 +16,25 @@
 	top 0
 	bottom 0
 	overflow-y auto
+	@media screen and (max-width: 960px)
+		left 0 
+		top 56px
+		padding 10px
 .content
 	width 100%
 	margin 0
 	padding 10px
+	@media screen and (max-width: 640px)
+		padding 0
 	&__header
 		overflow hidden
 		width 100% 
 		border-bottom 1px solid $border-grey
 		padding-bottom 10px
 		margin-bottom 10px
+		@media screen and (max-width: 640px)
+			h1
+				font-size 18px
 	&__body	
 		&__featured
 			width 600px
@@ -39,6 +48,8 @@
 			text-align center
 			depth(0)
 			transition(all 0.4s ease)
+			@media screen and (max-width: 640px)
+				width 100%
 			&:hover
 				depth(3)
 			&__header
@@ -81,12 +92,15 @@
 				padding-bottom 5px
 				display inline-block
 				width 45% 
-				@media screen and (max-width: 1230px)
-					width 90% 
 				margin 10px 20px
 				border 1px solid $border-grey
 				transition(all 0.4s ease)
 				depth(0)
+				@media screen and (max-width: 1230px)
+					width 90% 
+				@media screen and (max-width: 640px)
+					width 100%
+					margin 10px 0
 				&:hover
 					depth(3)
 				&__image
@@ -99,10 +113,18 @@
 					border-left 1px solid $border-grey
 					&__text
 						line-height 26px
+					@media screen and (max-width: 640px)
+						border-left none
+						float right
+						clear right
 				&__info
 					width 200px
 					display inline-block 
 					text-align center
+					@media screen and (max-width: 640px)
+						margin 0 auto
+						clear both
+						display block
 					p
 						line-height 26px 
 				&__footer

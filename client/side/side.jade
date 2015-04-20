@@ -1,4 +1,5 @@
 template(name="side")
+	+mobileHeader
 	aside.side
 		.side__header
 			a(href="/")
@@ -29,3 +30,9 @@ template(name="side")
 			p.muted LELKING by
 			p.muted Murilobast
 			p.muted Deam
+
+template(name="mobileHeader")
+	.mobile__header
+		.mobile__header__menu
+		a(href="/")
+			h3.mobile__header__title LELKING
