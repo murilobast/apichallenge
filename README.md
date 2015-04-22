@@ -23,10 +23,12 @@ This guide is not very friendly nor complete and it is more for the people who a
 #####How to use
 1. Clone the repository. `git clone https://github.com/murilobast/apichallenge.git`
 2. Open terminal and navigate to the folder.
-3. Write `meteor` - Meteor should start running locally now.
-4. Open a new terminal session.
-4. Run getMatches.coffee in the terminal. `coffee getMatches.coffee`
-5. Run getChampions.coffee and follow the instructions in the code. (to uncomment delete the '#') `coffee getChampions.coffee` - Run this command every time you uncomment the code.
+3. Write `npm install` - Should create the folder "node_modules"
+4. Navigate to the folder "app"
+5. Write `meteor` - Meteor should start running locally now.
+6. Open a new terminal session.
+7. Run getMatches.coffee in the terminal. `coffee getMatches.coffee`
+8. Run getChampions.coffee and follow the instructions in the code. (to uncomment delete the '#') `coffee getChampions.coffee` - Run this command every time you uncomment the code.
 
 ##Feedback
 Please give us some feedback! It's very appreciated and if you're struggling trying to understand something please tweet us or send us a mail.
