@@ -1,0 +1,25 @@
+{
+  "name": "apichallenge",
+  "version": "1.0.0",
+  "description": "This Github repo is made for LoL API Challenge @RiotGamesAPI. This was an URF specific challenge more information can be found [here](https://developer.riotgames.com/discussion/riot-games-api/show/bX8Z86bm). <br> The result of this project is a website which is [Lelking.com](http://www.lelking.com/). The project is made with [Meteor](https://www.meteor.com/) and a further explanation about everything on the project and this repo is below. ## What is meteor? And why? > Meteor is a complete open source platform for building web and mobile apps in plain JavaScript.",
+  "main": "index.js",
+  "dependencies": {
+    "mongodb": "^2.0.27"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.9.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/murilobast/apichallenge.git"
+  },
+  "author": "Lelking.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/murilobast/apichallenge/issues"
+  },
+  "homepage": "https://github.com/murilobast/apichallenge"
+}
