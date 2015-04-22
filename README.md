@@ -30,7 +30,7 @@ This guide is not very friendly nor complete and it is more for the people who a
 7. Edit getMatches.coffee and getChampions.coffee where you provide your own API key.
 8. Run getMatches.coffee in the terminal. `coffee getMatches.coffee`
 9. Run getChampions.coffee and follow the instructions in the code. (to uncomment delete the '#') `coffee getChampions.coffee` - Run this command every time you uncomment the code.
-10. Open `http://localhost:3000/` in your browser
+10. Open `http://localhost:3000/` in your browser.
 
 ##Feedback
 Please give us some feedback! It's very appreciated and if you're struggling trying to understand something please tweet us or send us a mail.
