@@ -102,9 +102,9 @@ Template.body.helpers
                 bg.key + '_0'
             
 Template.body.rendered = () ->
-    $('#select-server').selectize({
-    })
-
+    $('#select-server').selectize()
+    input = $('.selectize-input input')
+    input.attr('disabled', true)
 
 Handlebars.registerHelper 'session', (input) ->
     Session.get input
